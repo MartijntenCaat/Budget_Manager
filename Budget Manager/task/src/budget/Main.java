@@ -2,6 +2,14 @@ package budget;
 
 public class Main {
     public static void main(String[] args) {
-        // write your code here
+        BudgetApp budgetApp = new BudgetApp();
+
+        while (budgetApp.isOnline()) {
+            budgetApp.run();
+        }
+
+        budgetApp.printData();
+
+        budgetApp.printTotal();
     }
 }

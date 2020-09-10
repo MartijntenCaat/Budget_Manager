@@ -1,0 +1,10 @@
+# Project exclude paths
+/.gradle/
+/Problems/Concat all strings without digits/out/
+/Problems/Concat all strings without digits/out/production/classes/
+/Problems/Find the first occurrence of the word  the/out/
+/Problems/Find the first occurrence of the word  the/out/production/classes/
+/Problems/Move the first N characters/out/
+/Problems/Move the first N characters/out/production/classes/
+/Problems/The lucky ticket/out/
+/Problems/The lucky ticket/out/production/classes/
