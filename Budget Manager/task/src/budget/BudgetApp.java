@@ -8,11 +8,13 @@ public class BudgetApp {
     private final Scanner scanner;
     private final LinkedHashMap<String, BigDecimal> budgetStore;
     private final AppMenu appMenu;
+    private BigDecimal income;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scanner = new Scanner(System.in);
         this.budgetStore = new LinkedHashMap<>();
+        this.income = BigDecimal.ZERO;
         this.appMenu = new AppMenu();
         this.isOnline = true;
     }
@@ -45,6 +47,17 @@ public class BudgetApp {
 
     public void printAppMenu() {
         System.out.println(appMenu.printAppMenu());
+    }
+
+    public BigDecimal askForIncome() {
+        System.out.println("Enter Income:");
+        String income = scanner.nextLine();
+        return BigDecimal.valueOf(Integer.parseInt(income));
+    }
+
+    public void processIncome(BigDecimal income) {
+        this.income.add(income);
+        System.out.println("Income was added!\n");
     }
 
     public void parseUserInput(String rawInput) {

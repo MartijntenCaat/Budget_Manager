@@ -10,7 +10,7 @@ public class Main {
 
             switch (userInput) {
                 case "1":
-                    // code
+                budgetApp.processIncome(budgetApp.askForIncome());
                     break;
                 case "2":
                     // code
@@ -28,10 +28,6 @@ public class Main {
                     System.out.println("Something went wrong, please try again!");
                     break;
             }
-
-//            budgetApp.printData();
-//
-//            budgetApp.printTotal();
         }
     }
 }
