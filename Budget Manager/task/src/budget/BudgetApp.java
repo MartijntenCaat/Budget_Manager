@@ -95,5 +95,22 @@ public class BudgetApp {
 
         System.out.println("Total: $" + total);
     }
+
+    public String askPurchase() {
+        System.out.println("Enter purchase name:");
+        return scanner.nextLine();
+    }
+
+    public BigDecimal askPurchasePrice() {
+        System.out.println("Enter its price:");
+        String price = scanner.nextLine();
+        return new BigDecimal(String.valueOf(price));
+    }
+
+    public void processPurchase (String purchase, BigDecimal price) {
+        budgetStore.put(purchase, price);
+        System.out.println("Purchase was added! " + price);
+    }
+
 }
 

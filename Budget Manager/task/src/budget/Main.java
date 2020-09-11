@@ -10,10 +10,10 @@ public class Main {
 
             switch (userInput) {
                 case "1":
-                budgetApp.processIncome(budgetApp.askForIncome());
+                    budgetApp.processIncome(budgetApp.askForIncome());
                     break;
                 case "2":
-                    // code
+                    budgetApp.processPurchase(budgetApp.askPurchase(), budgetApp.askPurchasePrice());
                     break;
                 case "3":
                     // code
