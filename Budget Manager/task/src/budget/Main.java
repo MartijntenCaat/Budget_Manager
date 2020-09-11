@@ -16,7 +16,8 @@ public class Main {
                     budgetApp.processPurchase(budgetApp.askPurchase(), budgetApp.askPurchasePrice());
                     break;
                 case "3":
-                    // code
+                    budgetApp.printAllPurchases();
+                    budgetApp.printTotalPurchasePrice();
                     break;
                 case "4":
                     // code

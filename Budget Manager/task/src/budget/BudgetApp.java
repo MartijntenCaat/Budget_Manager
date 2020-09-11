@@ -72,20 +72,23 @@ public class BudgetApp {
         budgetStore.put(item, price);
     }
 
-    public void printData() {
+    public void printAllPurchases() {
         StringBuilder stringbuilder = new StringBuilder("");
 
         for (String item : budgetStore.keySet()) {
             stringbuilder.append(item)
+                    .append(" ")
                     .append("$")
                     .append(budgetStore.get(item))
                     .append("\n");
         }
 
+        stringbuilder.delete(stringbuilder.length() - 1, stringbuilder.length());
+
         System.out.println(stringbuilder);
     }
 
-    public void printTotal() {
+    public void printTotalPurchasePrice() {
         BigDecimal total = new BigDecimal("0.0");
 
         for (String item : budgetStore.keySet()) {
