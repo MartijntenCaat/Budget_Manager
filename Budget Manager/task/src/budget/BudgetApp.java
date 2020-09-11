@@ -52,7 +52,7 @@ public class BudgetApp {
     public BigDecimal askForIncome() {
         System.out.println("Enter Income:");
         String income = scanner.nextLine();
-        return BigDecimal.valueOf(Integer.parseInt(income));
+        return new BigDecimal(String.valueOf(income));
     }
 
     public void processIncome(BigDecimal income) {
@@ -109,7 +109,7 @@ public class BudgetApp {
 
     public void processPurchase (String purchase, BigDecimal price) {
         budgetStore.put(purchase, price);
-        System.out.println("Purchase was added! " + price);
+        System.out.println("Purchase was added!");
     }
 
 }
