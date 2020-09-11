@@ -7,20 +7,31 @@ import java.util.Scanner;
 public class BudgetApp {
     private final Scanner scanner;
     private final LinkedHashMap<String, BigDecimal> budgetStore;
+    private final AppMenu appMenu;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scanner = new Scanner(System.in);
         this.budgetStore = new LinkedHashMap<>();
+        this.appMenu = new AppMenu();
         this.isOnline = true;
     }
 
-    public void run() {
-        if (scanner.hasNext()) {
-            String rawInput = readUserInput();
-            parseUserInput(rawInput);
-            return;
-        }
+//    public void run() {
+//
+//
+//        }
+//
+////        if (scanner.hasNext()) {
+////            String rawInput = readUserInput();
+////            parseUserInput(rawInput);
+////            return;
+////        }
+////
+//    }
+
+    public void exitBudgetApp() {
+        System.out.println("Bye!");
         isOnline = false;
     }
 
@@ -30,6 +41,10 @@ public class BudgetApp {
 
     public String readUserInput() {
         return scanner.nextLine();
+    }
+
+    public void printAppMenu() {
+        System.out.println(appMenu.printAppMenu());
     }
 
     public void parseUserInput(String rawInput) {
