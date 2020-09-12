@@ -9,31 +9,20 @@ public class BudgetApp {
     private final LinkedHashMap<String, BigDecimal> budgetStore;
     private final AppMenu appMenu;
     private BigDecimal income;
+    private BigDecimal balance;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scanner = new Scanner(System.in);
         this.budgetStore = new LinkedHashMap<>();
         this.income = BigDecimal.ZERO;
+        this.balance = BigDecimal.ZERO;
         this.appMenu = new AppMenu();
         this.isOnline = true;
     }
 
-//    public void run() {
-//
-//
-//        }
-//
-////        if (scanner.hasNext()) {
-////            String rawInput = readUserInput();
-////            parseUserInput(rawInput);
-////            return;
-////        }
-////
-//    }
-
     public void exitBudgetApp() {
-        System.out.println("Bye!");
+        System.out.println("Bye!\n");
         isOnline = false;
     }
 
@@ -55,8 +44,9 @@ public class BudgetApp {
         return new BigDecimal(String.valueOf(income));
     }
 
-    public void processIncome(BigDecimal income) {
-        this.income.add(income);
+    public void processIncome(BigDecimal newIncome) {
+        income = new BigDecimal(String.valueOf(income.add(newIncome)));
+        balance = new BigDecimal(String.valueOf(balance.add(newIncome)));
         System.out.println("Income was added!\n");
     }
 
@@ -115,7 +105,21 @@ public class BudgetApp {
 
     public void processPurchase (String purchase, BigDecimal price) {
         budgetStore.put(purchase, price);
+        subtractFromBalance(price);
         System.out.println("Purchase was added!");
+    }
+
+    public void subtractFromBalance(BigDecimal purchasePrice) {
+        balance = new BigDecimal(String.valueOf(balance.min(purchasePrice)));
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void printBalance() {
+        StringBuilder stringBuilder = new StringBuilder("Balance: $").append(balance).append("\n");
+        System.out.println(stringBuilder);
     }
 
 }

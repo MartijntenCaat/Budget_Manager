@@ -20,7 +20,7 @@ public class Main {
                     budgetApp.printTotalPurchasePrice();
                     break;
                 case "4":
-                    // code
+                    budgetApp.printBalance();
                     break;
                 case "0":
                     budgetApp.exitBudgetApp();
