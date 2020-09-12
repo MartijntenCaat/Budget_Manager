@@ -22,7 +22,7 @@ public class BudgetApp {
     }
 
     public void exitBudgetApp() {
-        System.out.println("Bye!\n");
+        System.out.println("\nBye!\n");
         isOnline = false;
     }
 
@@ -118,8 +118,8 @@ public class BudgetApp {
     }
 
     public void printBalance() {
-        StringBuilder stringBuilder = new StringBuilder("Balance: $").append(balance).append("\n");
-        System.out.println(stringBuilder);
+        // TODO fix this issue where I cannot print a formatted string, string shoulde be printed with 2 decimals after point.
+        System.out.printf("%.3f%n", "\nBalance: $" + balance + "\n");
     }
 
 }
