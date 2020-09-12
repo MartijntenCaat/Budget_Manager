@@ -96,7 +96,10 @@ public class BudgetApp {
             total = new BigDecimal(String.valueOf(total.add(price)));
         }
 
-        System.out.println("Total: $" + total);
+        StringBuilder stringBuilder = new StringBuilder("Total sum: $");
+        stringBuilder.append(total).append("\n");
+
+        System.out.println(stringBuilder);
     }
 
     public String askPurchase() {
