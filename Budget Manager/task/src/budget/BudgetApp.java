@@ -111,7 +111,7 @@ public class BudgetApp {
     }
 
     public void subtractFromBalance(BigDecimal purchasePrice) {
-        balance = new BigDecimal(String.valueOf(balance.min(purchasePrice)));
+        balance = balance.subtract(purchasePrice);
     }
 
     public void printBalance() {
