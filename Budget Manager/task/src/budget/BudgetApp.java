@@ -47,7 +47,7 @@ public class BudgetApp {
     public void processIncome(BigDecimal newIncome) {
         income = new BigDecimal(String.valueOf(income.add(newIncome)));
         balance = new BigDecimal(String.valueOf(balance.add(newIncome)));
-        System.out.println("Income was added!\n");
+        System.out.println("\nIncome was added!\n");
     }
 
     public void parseUserInput(String rawInput) {
@@ -86,7 +86,7 @@ public class BudgetApp {
             total = new BigDecimal(String.valueOf(total.add(price)));
         }
 
-        StringBuilder stringBuilder = new StringBuilder("Total sum: $");
+        StringBuilder stringBuilder = new StringBuilder("\nTotal sum: $");
         stringBuilder.append(total).append("\n");
 
         System.out.println(stringBuilder);
@@ -106,7 +106,7 @@ public class BudgetApp {
     public void processPurchase (String purchase, BigDecimal price) {
         budgetStore.put(purchase, price);
         subtractFromBalance(price);
-        System.out.println("Purchase was added!");
+        System.out.println("\nPurchase was added!");
     }
 
     public void subtractFromBalance(BigDecimal purchasePrice) {
@@ -118,8 +118,9 @@ public class BudgetApp {
     }
 
     public void printBalance() {
-        // TODO fix this issue where I cannot print a formatted string, string shoulde be printed with 2 decimals after point.
-        System.out.printf("%.3f%n", "\nBalance: $" + balance + "\n");
+        System.out.print("\nBalance: $");
+        System.out.printf("%.2f%n", balance );
+        System.out.print("\n");
     }
 
 }
