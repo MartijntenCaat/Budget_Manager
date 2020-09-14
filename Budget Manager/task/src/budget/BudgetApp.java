@@ -22,7 +22,7 @@ public class BudgetApp {
     }
 
     public void exitBudgetApp() {
-        System.out.println("\nBye!\n");
+        System.out.println("\nBye!");
         isOnline = false;
     }
 
@@ -62,21 +62,24 @@ public class BudgetApp {
         budgetStore.put(item, price);
     }
 
-    public void printAllPurchases() {
+    public void printAllPurchasesAndTotalPrice() {
+        if (budgetStore.isEmpty()) {
+            System.out.println("\nPurchase list is empty\n");
+            return;
+        }
+
         StringBuilder stringbuilder = new StringBuilder("");
 
         for (String item : budgetStore.keySet()) {
-            stringbuilder.append(item)
+            stringbuilder.append("\n")
+                    .append(item)
                     .append(" ")
                     .append("$")
-                    .append(budgetStore.get(item))
-                    .append("\n");
+                    .append(budgetStore.get(item));
         }
 
         System.out.println(stringbuilder);
-    }
 
-    public void printTotalPurchasePrice() {
         BigDecimal total = new BigDecimal("0.0");
 
         for (String item : budgetStore.keySet()) {
@@ -84,14 +87,14 @@ public class BudgetApp {
             total = new BigDecimal(String.valueOf(total.add(price)));
         }
 
-        StringBuilder stringBuilder = new StringBuilder("\nTotal sum: $");
+        StringBuilder stringBuilder = new StringBuilder("Total sum: $");
         stringBuilder.append(total).append("\n");
 
         System.out.println(stringBuilder);
     }
 
     public String askPurchase() {
-        System.out.println("Enter purchase name:");
+        System.out.println("\nEnter purchase name:");
         return scanner.nextLine();
     }
 
