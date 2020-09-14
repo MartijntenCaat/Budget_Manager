@@ -73,8 +73,6 @@ public class BudgetApp {
                     .append("\n");
         }
 
-        stringbuilder.delete(stringbuilder.length() - 1, stringbuilder.length());
-
         System.out.println(stringbuilder);
     }
 
