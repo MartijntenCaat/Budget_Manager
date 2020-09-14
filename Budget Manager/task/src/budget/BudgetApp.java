@@ -114,10 +114,6 @@ public class BudgetApp {
         balance = new BigDecimal(String.valueOf(balance.min(purchasePrice)));
     }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
     public void printBalance() {
         System.out.print("\nBalance: $");
         System.out.printf("%.2f%n", balance );
