@@ -41,25 +41,13 @@ public class BudgetApp {
     public BigDecimal askForIncome() {
         System.out.println("Enter Income:");
         String income = scanner.nextLine();
-        return new BigDecimal(String.valueOf(income));
+        return new BigDecimal(income);
     }
 
     public void processIncome(BigDecimal newIncome) {
-        income = new BigDecimal(String.valueOf(income.add(newIncome)));
-        balance = new BigDecimal(String.valueOf(balance.add(newIncome)));
+        income = income.add(newIncome);
+        balance = balance.add(newIncome);
         System.out.println("\nIncome was added!\n");
-    }
-
-    public void parseUserInput(String rawInput) {
-        String[] input = rawInput.split("\\$");
-        String item = input[0];
-        BigDecimal price = new BigDecimal(input[1]);
-
-        addItem(item, price);
-    }
-
-    public void addItem(String item, BigDecimal price) {
-        budgetStore.put(item, price);
     }
 
     public void printAllPurchasesAndTotalPrice() {
@@ -68,7 +56,7 @@ public class BudgetApp {
             return;
         }
 
-        StringBuilder stringbuilder = new StringBuilder("");
+        StringBuilder stringbuilder = new StringBuilder();
 
         for (String item : budgetStore.keySet()) {
             stringbuilder.append("\n")
@@ -84,13 +72,10 @@ public class BudgetApp {
 
         for (String item : budgetStore.keySet()) {
             BigDecimal price = budgetStore.get(item);
-            total = new BigDecimal(String.valueOf(total.add(price)));
+            total = total.add(price);
         }
 
-        StringBuilder stringBuilder = new StringBuilder("Total sum: $");
-        stringBuilder.append(total).append("\n");
-
-        System.out.println(stringBuilder);
+        System.out.println("Total sum: $" + total + "\n");
     }
 
     public String askPurchase() {
@@ -101,7 +86,7 @@ public class BudgetApp {
     public BigDecimal askPurchasePrice() {
         System.out.println("Enter its price:");
         String price = scanner.nextLine();
-        return new BigDecimal(String.valueOf(price));
+        return new BigDecimal(price);
     }
 
     public void processPurchase (String purchase, BigDecimal price) {
