@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class BudgetApp {
     private final Scanner scanner;
     private final LinkedHashMap<String, BigDecimal> budgetStore;
-    private final AppMenu appMenu;
     private BigDecimal income;
     private BigDecimal balance;
     private boolean isOnline;
@@ -17,12 +16,12 @@ public class BudgetApp {
         this.budgetStore = new LinkedHashMap<>();
         this.income = BigDecimal.ZERO;
         this.balance = BigDecimal.ZERO;
-        this.appMenu = new AppMenu();
         this.isOnline = true;
     }
 
     public void run() {
         printAppMenu();
+
         String userInput = readUserInput();
 
         switch (userInput) {
@@ -47,6 +46,16 @@ public class BudgetApp {
         }
     }
 
+    public void printAppMenu() {
+        StringBuilder appMenu = new StringBuilder("Choose your action:\n");
+        appMenu.append("1) Add income\n")
+                .append("2) Add purchase\n")
+                .append("3) Show list of purchases\n")
+                .append("4) Balance\n")
+                .append("0) Exit");
+        System.out.println(appMenu);
+    }
+
     public void exitBudgetApp() {
         System.out.println("\nBye!");
         isOnline = false;
@@ -58,10 +67,6 @@ public class BudgetApp {
 
     public String readUserInput() {
         return scanner.nextLine();
-    }
-
-    public void printAppMenu() {
-        System.out.println(appMenu.printAppMenu());
     }
 
     public BigDecimal askForIncome() {
