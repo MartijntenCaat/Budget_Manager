@@ -5,11 +5,29 @@ public class Main {
         BudgetApp budgetApp = new BudgetApp();
 
         while (budgetApp.isOnline()) {
-            budgetApp.run();
+            budgetApp.printAppMenu();
+            String userInput = budgetApp.readUserInput();
+
+            switch (userInput) {
+                case "1":
+                    budgetApp.processIncome(budgetApp.askForIncome());
+                    break;
+                case "2":
+                    budgetApp.processPurchase(budgetApp.askPurchase(), budgetApp.askPurchasePrice());
+                    break;
+                case "3":
+                    budgetApp.printAllPurchasesAndTotalPrice();
+                    break;
+                case "4":
+                    budgetApp.printBalance();
+                    break;
+                case "0":
+                    budgetApp.exitBudgetApp();
+                    break;
+                default:
+                    System.out.println("Something went wrong, please try again!");
+                    break;
+            }
         }
-
-        budgetApp.printData();
-
-        budgetApp.printTotal();
     }
 }
