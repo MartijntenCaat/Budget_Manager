@@ -21,6 +21,32 @@ public class BudgetApp {
         this.isOnline = true;
     }
 
+    public void run() {
+        printAppMenu();
+        String userInput = readUserInput();
+
+        switch (userInput) {
+            case "1":
+                processIncome(askForIncome());
+                break;
+            case "2":
+                processPurchase(askPurchase(), askPurchasePrice());
+                break;
+            case "3":
+                printAllPurchasesAndTotalPrice();
+                break;
+            case "4":
+                printBalance();
+                break;
+            case "0":
+                exitBudgetApp();
+                break;
+            default:
+                System.out.println("Something went wrong, please try again!");
+                break;
+        }
+    }
+
     public void exitBudgetApp() {
         System.out.println("\nBye!");
         isOnline = false;
