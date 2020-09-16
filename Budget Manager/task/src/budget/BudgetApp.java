@@ -47,12 +47,11 @@ public class BudgetApp {
     }
 
     public void printAppMenu() {
-        StringBuilder appMenu = new StringBuilder("Choose your action:\n");
-        appMenu.append("1) Add income\n")
-                .append("2) Add purchase\n")
-                .append("3) Show list of purchases\n")
-                .append("4) Balance\n")
-                .append("0) Exit");
+        String appMenu = "Choose your action:\n" + "1) Add income\n" +
+                "2) Add purchase\n" +
+                "3) Show list of purchases\n" +
+                "4) Balance\n" +
+                "0) Exit";
         System.out.println(appMenu);
     }
 
