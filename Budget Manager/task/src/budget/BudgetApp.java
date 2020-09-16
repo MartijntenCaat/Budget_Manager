@@ -1,19 +1,18 @@
 package budget;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class BudgetApp {
     private final Scanner scanner;
-    private final LinkedHashMap<String, BigDecimal> budgetStore;
+    private final PurchaseStore purchaseStore;
     private final Income income;
     private final Balance balance;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scanner = new Scanner(System.in);
-        this.budgetStore = new LinkedHashMap<>();
+        this.purchaseStore = new PurchaseStore();
         this.income = new Income();
         this.balance = new Balance();
         this.isOnline = true;
@@ -81,27 +80,27 @@ public class BudgetApp {
     }
 
     public void printAllPurchasesAndTotalPrice() {
-        if (budgetStore.isEmpty()) {
+        if (purchaseStore.getPurchaseStore().isEmpty()) {
             System.out.println("\nPurchase list is empty\n");
             return;
         }
 
         StringBuilder stringbuilder = new StringBuilder();
 
-        for (String item : budgetStore.keySet()) {
+        for (String item : purchaseStore.getPurchaseStore().keySet()) {
             stringbuilder.append("\n")
                     .append(item)
                     .append(" ")
                     .append("$")
-                    .append(budgetStore.get(item));
+                    .append(purchaseStore.getPurchaseStore().get(item));
         }
 
         System.out.println(stringbuilder);
 
         BigDecimal total = new BigDecimal("0.0");
 
-        for (String item : budgetStore.keySet()) {
-            BigDecimal price = budgetStore.get(item);
+        for (String item : purchaseStore.getPurchaseStore().keySet()) {
+            BigDecimal price = purchaseStore.getPurchaseStore().get(item);
             total = total.add(price);
         }
 
@@ -120,7 +119,7 @@ public class BudgetApp {
     }
 
     public void processPurchase (String purchase, BigDecimal price) {
-        budgetStore.put(purchase, price);
+        purchaseStore.addPurchase(purchase, price);
         subtractFromBalance(price);
         System.out.println("\nPurchase was added!");
     }
