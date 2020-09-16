@@ -7,15 +7,15 @@ import java.util.Scanner;
 public class BudgetApp {
     private final Scanner scanner;
     private final LinkedHashMap<String, BigDecimal> budgetStore;
-    private BigDecimal income;
-    private BigDecimal balance;
+    private final Income income;
+    private final Balance balance;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scanner = new Scanner(System.in);
         this.budgetStore = new LinkedHashMap<>();
-        this.income = BigDecimal.ZERO;
-        this.balance = BigDecimal.ZERO;
+        this.income = new Income();
+        this.balance = new Balance();
         this.isOnline = true;
     }
 
@@ -76,8 +76,8 @@ public class BudgetApp {
     }
 
     public void processIncome(BigDecimal newIncome) {
-        income = income.add(newIncome);
-        balance = balance.add(newIncome);
+        income.setIncome(newIncome);
+        balance.setBalance(newIncome);
         System.out.println("\nIncome was added!\n");
     }
 
@@ -127,12 +127,12 @@ public class BudgetApp {
     }
 
     public void subtractFromBalance(BigDecimal purchasePrice) {
-        balance = balance.subtract(purchasePrice);
+        balance.setBalance(balance.getBalance().subtract(purchasePrice));
     }
 
     public void printBalance() {
         System.out.print("\nBalance: $");
-        System.out.printf("%.2f%n", balance );
+        System.out.printf("%.2f%n", balance.getBalance());
         System.out.print("\n");
     }
 
