@@ -105,7 +105,6 @@ public class BudgetApp {
         print(PRINT_TYPE_OPTIONS);
         // TODO make it possible to check is type is empty or if whole list is empty. Then print accordingly.
 
-
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             print("\n" + purchase.getName() + " $" + purchase.getPrice());
         }
