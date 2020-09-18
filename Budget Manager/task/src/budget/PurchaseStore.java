@@ -1,20 +1,19 @@
 package budget;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 public class PurchaseStore {
-    private final LinkedHashMap<String, BigDecimal> purchaseStore;
+    private final LinkedHashSet<Purchase> purchaseStore;
 
     public PurchaseStore() {
-        this.purchaseStore = new LinkedHashMap<>();
+        this.purchaseStore = new LinkedHashSet<>();
     }
 
-    public LinkedHashMap<String, BigDecimal> getPurchaseStore() {
+    public LinkedHashSet<Purchase> getPurchaseStore() {
         return purchaseStore;
     }
 
-    public void addPurchase(String purchase, BigDecimal price) {
-        purchaseStore.put(purchase, price);
+    public void addPurchase(Purchase purchase) {
+        purchaseStore.add(purchase);
     }
 }

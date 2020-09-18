@@ -28,7 +28,12 @@ public class BudgetApp {
                 processIncome(askForIncome());
                 break;
             case "2":
-                processPurchase(askPurchase(), askPurchasePrice());
+                Purchase purchase = askPurchase();
+                if (purchase == null) {
+                    printError();
+                } else {
+                    processPurchase(purchase);
+                }
                 break;
             case "3":
                 printAllPurchasesAndTotalPrice();
@@ -40,9 +45,13 @@ public class BudgetApp {
                 exitBudgetApp();
                 break;
             default:
-                System.out.println("Something went wrong, please try again!");
+                printError();
                 break;
         }
+    }
+
+    public void printError() {
+        System.out.println("Something went wrong, please try again!");
     }
 
     public void printAppMenu() {
@@ -87,29 +96,65 @@ public class BudgetApp {
 
         StringBuilder stringbuilder = new StringBuilder();
 
-        for (String item : purchaseStore.getPurchaseStore().keySet()) {
+        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             stringbuilder.append("\n")
-                    .append(item)
+                    .append(purchase.getName())
                     .append(" ")
                     .append("$")
-                    .append(purchaseStore.getPurchaseStore().get(item));
+                    .append(purchase.getPrice());
         }
 
         System.out.println(stringbuilder);
 
         BigDecimal total = new BigDecimal("0.0");
 
-        for (String item : purchaseStore.getPurchaseStore().keySet()) {
-            BigDecimal price = purchaseStore.getPurchaseStore().get(item);
+        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
+            BigDecimal price = purchase.getPrice();
             total = total.add(price);
         }
 
         System.out.println("Total sum: $" + total + "\n");
     }
 
-    public String askPurchase() {
+    public Purchase askPurchase() {
+        Purchase purchase = new Purchase();
+
+        PurchaseType userInputType = askPurchaseType();
+        if (userInputType == null) {
+            return null;
+        }
+        purchase.setType(userInputType);
+
+        String userInputName = askPurchaseName();
+        purchase.setName(userInputName);
+
+        BigDecimal userInputPrice = askPurchasePrice();
+        purchase.setPrice(userInputPrice);
+
+        return purchase;
+    }
+
+    public String askPurchaseName() {
         System.out.println("\nEnter purchase name:");
         return scanner.nextLine();
+    }
+
+    private PurchaseType askPurchaseType() {
+        System.out.println("Choose the type of purchase");
+        String userInputType = scanner.nextLine();
+
+        if (userInputType.equals("5")) { // back to menu
+            return null;
+        }
+
+        for (PurchaseType purchaseType : PurchaseType.values()) {
+            if (purchaseType.getValue().equals(userInputType)) {
+                return purchaseType;
+            }
+        }
+
+        System.out.println("Something went wrong, try again!");
+        return null;
     }
 
     public BigDecimal askPurchasePrice() {
@@ -118,9 +163,9 @@ public class BudgetApp {
         return new BigDecimal(price);
     }
 
-    public void processPurchase (String purchase, BigDecimal price) {
-        purchaseStore.addPurchase(purchase, price);
-        subtractFromBalance(price);
+    public void processPurchase (Purchase purchase) {
+        purchaseStore.addPurchase(purchase);
+        subtractFromBalance(purchase.getPrice());
         System.out.println("\nPurchase was added!");
     }
 

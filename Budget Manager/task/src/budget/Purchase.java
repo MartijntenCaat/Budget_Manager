@@ -4,21 +4,31 @@ import java.math.BigDecimal;
 
 public class Purchase {
     private PurchaseType type;
-    private String description;
+    private String name;
     private BigDecimal price;
 
-    public Purchase(PurchaseType type, String description, BigDecimal price) {
-        this.type = type;
-        this.description = description;
-        this.price = price;
+    public Purchase() {
+        this.type = null;
     }
 
     public PurchaseType getType() {
         return type;
     }
 
-    public String getDescription() {
-        return description;
+    public void setType(PurchaseType type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public BigDecimal getPrice() {
