@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Balance {
     private BigDecimal balance;
 
-    public Balance(){
+    public Balance() {
         this.balance = BigDecimal.ZERO;
     }
 

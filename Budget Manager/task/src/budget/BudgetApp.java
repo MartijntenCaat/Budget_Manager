@@ -4,28 +4,35 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class BudgetApp {
-    private final static  String APP_MENU = "Choose your action:" +
+    private final static String APP_MENU = "Choose your action:" +
             "\n1) Add income" +
             "\n2) Add purchase" +
             "\n3) Show list of purchases" +
             "\n4) Balance" +
             "\n0) Exit";
-    private final static String TYPE_OPTIONS = "\nChoose the type of purchase" +
+    private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
             "\n1) Food" +
             "\n2) Clothes" +
             "\n3) Entertainment" +
             "\n4) Other" +
             "\n5) Back";
+    private final static String PRINT_TYPE_OPTIONS = "\nChoose the type of purchases" +
+            "\n1) Food" +
+            "\n2) Clothes" +
+            "\n3) Entertainment" +
+            "\n4) Other" +
+            "\n5) All" +
+            "\n6) Back";
     private final static String ERROR = "Something went wrong, please try again!";
 
-    private final Scanner scanner;
+    private final Scanner scan;
     private final PurchaseStore purchaseStore;
     private final Income income;
     private final Balance balance;
     private boolean isOnline;
 
     public BudgetApp() {
-        this.scanner = new Scanner(System.in);
+        this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
         this.income = new Income();
         this.balance = new Balance();
@@ -74,12 +81,12 @@ public class BudgetApp {
     }
 
     public String readUserInput() {
-        return scanner.nextLine();
+        return scan.nextLine();
     }
 
     public BigDecimal askForIncome() {
         print("Enter Income:");
-        String income = scanner.nextLine();
+        String income = scan.nextLine();
         return new BigDecimal(income);
     }
 
@@ -94,6 +101,10 @@ public class BudgetApp {
             print("\nPurchase list is empty\n");
             return;
         }
+
+        print(PRINT_TYPE_OPTIONS);
+        // TODO make it possible to check is type is empty or if whole list is empty. Then print accordingly.
+
 
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             print("\n" + purchase.getName() + " $" + purchase.getPrice());
@@ -128,12 +139,12 @@ public class BudgetApp {
 
     public String askPurchaseName() {
         print("\nEnter purchase name:");
-        return scanner.nextLine();
+        return scan.nextLine();
     }
 
     private PurchaseType askPurchaseType() {
-        print(TYPE_OPTIONS);
-        String userInputType = scanner.nextLine();
+        print(INPUT_TYPE_OPTIONS);
+        String userInputType = scan.nextLine();
 
         if (userInputType.equals("5")) { // back to menu
             askPurchaseType();
@@ -151,11 +162,11 @@ public class BudgetApp {
 
     public BigDecimal askPurchasePrice() {
         print("Enter its price:");
-        String price = scanner.nextLine();
+        String price = scan.nextLine();
         return new BigDecimal(price);
     }
 
-    public void processPurchase (Purchase purchase) {
+    public void processPurchase(Purchase purchase) {
         purchaseStore.addPurchase(purchase);
         subtractFromBalance(purchase.getPrice());
         print("Purchase was added!\n");
