@@ -4,6 +4,20 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class BudgetApp {
+    private final static  String APP_MENU = "Choose your action:" +
+            "\n1) Add income" +
+            "\n2) Add purchase" +
+            "\n3) Show list of purchases" +
+            "\n4) Balance" +
+            "\n0) Exit";
+    private final static String TYPE_OPTIONS = "\nChoose the type of purchase" +
+            "\n1) Food" +
+            "\n2) Clothes" +
+            "\n3) Entertainment" +
+            "\n4) Other" +
+            "\n5) Back";
+    private final static String ERROR = "Something went wrong, please try again!";
+
     private final Scanner scanner;
     private final PurchaseStore purchaseStore;
     private final Income income;
@@ -19,8 +33,7 @@ public class BudgetApp {
     }
 
     public void run() {
-        printAppMenu();
-
+        print(APP_MENU);
         String userInput = readUserInput();
 
         switch (userInput) {
@@ -29,9 +42,7 @@ public class BudgetApp {
                 break;
             case "2":
                 Purchase purchase = askPurchase();
-                if (purchase == null) {
-                    printError();
-                } else {
+                if (purchase != null) {
                     processPurchase(purchase);
                 }
                 break;
@@ -45,22 +56,12 @@ public class BudgetApp {
                 exitBudgetApp();
                 break;
             default:
-                printError();
                 break;
         }
     }
 
-    public void printError() {
-        System.out.println("Something went wrong, please try again!");
-    }
-
-    public void printAppMenu() {
-        String appMenu = "Choose your action:\n" + "1) Add income\n" +
-                "2) Add purchase\n" +
-                "3) Show list of purchases\n" +
-                "4) Balance\n" +
-                "0) Exit";
-        System.out.println(appMenu);
+    private void print(String string) {
+        System.out.println(string);
     }
 
     public void exitBudgetApp() {
@@ -140,11 +141,11 @@ public class BudgetApp {
     }
 
     private PurchaseType askPurchaseType() {
-        System.out.println("Choose the type of purchase");
+        print(TYPE_OPTIONS);
         String userInputType = scanner.nextLine();
 
         if (userInputType.equals("5")) { // back to menu
-            return null;
+            askPurchaseType();
         }
 
         for (PurchaseType purchaseType : PurchaseType.values()) {
@@ -153,7 +154,7 @@ public class BudgetApp {
             }
         }
 
-        System.out.println("Something went wrong, try again!");
+        print(ERROR);
         return null;
     }
 
@@ -166,7 +167,7 @@ public class BudgetApp {
     public void processPurchase (Purchase purchase) {
         purchaseStore.addPurchase(purchase);
         subtractFromBalance(purchase.getPrice());
-        System.out.println("\nPurchase was added!");
+        System.out.println("Purchase was added!\n");
     }
 
     public void subtractFromBalance(BigDecimal purchasePrice) {
