@@ -16,4 +16,8 @@ public class Balance {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
+
+    public void subtractFromBalance(BigDecimal purchasePrice) {
+        setBalance(balance.subtract(purchasePrice));
+    }
 }

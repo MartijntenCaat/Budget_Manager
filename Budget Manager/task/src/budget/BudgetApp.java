@@ -167,12 +167,8 @@ public class BudgetApp {
 
     public void processPurchase(Purchase purchase) {
         purchaseStore.addPurchase(purchase);
-        subtractFromBalance(purchase.getPrice());
+        balance.subtractFromBalance(purchase.getPrice());
         print("Purchase was added!\n");
-    }
-
-    public void subtractFromBalance(BigDecimal purchasePrice) {
-        balance.setBalance(balance.getBalance().subtract(purchasePrice));
     }
 
     public void printBalance() {
