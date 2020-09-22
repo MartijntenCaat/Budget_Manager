@@ -1,6 +1,7 @@
 package budget;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class BudgetApp {
@@ -104,18 +105,23 @@ public class BudgetApp {
             return;
         }
 
-        print(PRINT_TYPE_OPTIONS);
-        // TODO make it possible to check is type is empty or if whole list is empty. Then print accordingly.
+        PurchaseType purchaseType = askPurchaseTypeForChecking();
 
-        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-            print("\n" + purchase.getName() + " $" + purchase.getPrice());
+        if (purchaseType == null) {
+            return;
         }
 
-        BigDecimal total = new BigDecimal("0.0");
+        BigDecimal total = new BigDecimal(BigInteger.ZERO);
+
+        print("");
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-            BigDecimal price = purchase.getPrice();
-            total = total.add(price);
+            if (purchase.getType().equals(purchaseType)) {
+                print(purchase.getName() + " $" + purchase.getPrice());
+                total = total.add(purchase.getPrice());
+            }
         }
+
+        // TODO add check to see if list is empty, if empty return type and empty line!
 
         print("Total sum: $" + total + "\n");
     }
@@ -123,7 +129,7 @@ public class BudgetApp {
     public Purchase askPurchase() {
         Purchase purchase = new Purchase();
 
-        PurchaseType userInputType = askPurchaseType();
+        PurchaseType userInputType = askPurchaseTypeForAdding();
         if (userInputType == null) {
             return null;
         }
@@ -143,7 +149,25 @@ public class BudgetApp {
         return scan.nextLine();
     }
 
-    private PurchaseType askPurchaseType() {
+    private PurchaseType askPurchaseTypeForChecking() {
+        print(PRINT_TYPE_OPTIONS);
+        String userInputType = scan.nextLine();
+
+        if (userInputType.equals("6")) { // back to menu
+            return null;
+        }
+
+        for (PurchaseType purchaseType : PurchaseType.values()) {
+            if (purchaseType.getValue().equals(userInputType)) {
+                return purchaseType;
+            }
+        }
+
+        print(ERROR);
+        return null;
+    }
+
+    private PurchaseType askPurchaseTypeForAdding() {
         print(INPUT_TYPE_OPTIONS);
         String userInputType = scan.nextLine();
 
