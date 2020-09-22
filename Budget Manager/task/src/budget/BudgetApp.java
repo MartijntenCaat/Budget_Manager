@@ -51,6 +51,8 @@ public class BudgetApp {
                 Purchase purchase = askPurchase();
                 if (purchase != null) {
                     processPurchase(purchase);
+                } else {
+                    print("");
                 }
                 break;
             case "3":
@@ -146,7 +148,7 @@ public class BudgetApp {
         String userInputType = scan.nextLine();
 
         if (userInputType.equals("5")) { // back to menu
-            askPurchaseType();
+            return null;
         }
 
         for (PurchaseType purchaseType : PurchaseType.values()) {
