@@ -75,32 +75,32 @@ public class BudgetApp {
         System.out.println(string);
     }
 
-    public void exitBudgetApp() {
+    private void exitBudgetApp() {
         print("\nBye!");
         isOnline = false;
     }
 
-    public boolean isOnline() {
+    boolean isOnline() {
         return isOnline;
     }
 
-    public String readUserInput() {
+    private String readUserInput() {
         return scan.nextLine();
     }
 
-    public BigDecimal askForIncome() {
+    private BigDecimal askForIncome() {
         print("Enter Income:");
         String income = scan.nextLine();
         return new BigDecimal(income);
     }
 
-    public void processIncome(BigDecimal newIncome) {
+    private void processIncome(BigDecimal newIncome) {
         income.setIncome(newIncome);
         balance.setBalance(newIncome);
         print("\nIncome was added!\n");
     }
 
-    public void printAllPurchasesAndTotalPrice() {
+    private void printAllPurchasesAndTotalPrice() {
         if (purchaseStore.getPurchaseStore().isEmpty()) {
             print("\nPurchase list is empty\n");
             return;
@@ -127,7 +127,7 @@ public class BudgetApp {
         print("Total sum: $" + total + "\n");
     }
 
-    public Purchase askPurchase() {
+    private Purchase askPurchase() {
         Purchase purchase = new Purchase();
 
         PurchaseType userInputType = askPurchaseTypeForAdding();
@@ -145,7 +145,7 @@ public class BudgetApp {
         return purchase;
     }
 
-    public String askPurchaseName() {
+    private String askPurchaseName() {
         print("\nEnter purchase name:");
         return scan.nextLine();
     }
@@ -187,13 +187,13 @@ public class BudgetApp {
         return null;
     }
 
-    public BigDecimal askPurchasePrice() {
+    private BigDecimal askPurchasePrice() {
         print("Enter its price:");
         String price = scan.nextLine();
         return new BigDecimal(price);
     }
 
-    public void processPurchase(Purchase purchase) {
+    private void processPurchase(Purchase purchase) {
         purchaseStore.addPurchase(purchase);
         balance.subtractFromBalance(purchase.getPrice());
         print("Purchase was added!\n");
