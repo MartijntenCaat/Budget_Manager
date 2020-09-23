@@ -57,6 +57,10 @@ public class BudgetApp {
         this.isOnline = true;
     }
 
+    public void print(String string) {
+        System.out.println(string);
+    }
+
     public void run() {
         print(APP_MENU);
         String userInput = readUserInput();
@@ -86,10 +90,6 @@ public class BudgetApp {
             default:
                 break;
         }
-    }
-
-    private void print(String string) {
-        System.out.println(string);
     }
 
     private void exitBudgetApp() {
