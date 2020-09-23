@@ -49,6 +49,7 @@ public class BudgetApp {
                 processIncome(askForIncome());
                 break;
             case "2":
+                // TODO code a while loop that keeps running while input is not 6 nor 5.
                 Purchase purchase = askPurchase();
                 if (purchase != null) {
                     processPurchase(purchase);
@@ -172,6 +173,7 @@ public class BudgetApp {
         String userInputType = scan.nextLine();
 
         if (userInputType.equals("5")) { // back to menu
+
             return null;
         }
 
