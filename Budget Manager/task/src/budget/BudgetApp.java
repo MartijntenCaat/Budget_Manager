@@ -136,9 +136,9 @@ public class BudgetApp {
             }
         }
 
-        // TODO add check to see if list is empty, if empty return type and empty line!
-
-        print("Total sum: $" + total + "\n");
+        if (!total.equals(BigDecimal.ZERO)) {
+            print("Total sum: $" + total + "\n");
+        }
     }
 
     private void askPurchase() {
