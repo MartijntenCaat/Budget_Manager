@@ -27,20 +27,23 @@ public class BudgetApp {
             "\n2) Add purchase" +
             "\n3) Show list of purchases" +
             "\n4) Balance" +
-            "\n0) Exit";
+            "\n0) Exit" +
+            "\n";
     private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
             "\n1) Food" +
             "\n2) Clothes" +
             "\n3) Entertainment" +
             "\n4) Other" +
-            "\n5) Back";
+            "\n5) Back" +
+            "\n";
     private final static String PRINT_TYPE_OPTIONS = "\nChoose the type of purchases" +
             "\n1) Food" +
             "\n2) Clothes" +
             "\n3) Entertainment" +
             "\n4) Other" +
             "\n5) All" +
-            "\n6) Back";
+            "\n6) Back" +
+            "\n";
     private final static String ERROR = "Something went wrong, please try again!";
 
     private final Scanner scan;
@@ -58,7 +61,7 @@ public class BudgetApp {
     }
 
     public void print(String string) {
-        System.out.println(string);
+        System.out.print(string);
     }
 
     public void run() {
@@ -70,13 +73,7 @@ public class BudgetApp {
                 processIncome(askForIncome());
                 break;
             case "2":
-                // TODO code a while loop that keeps running while input is not 6 nor 5.
-                Purchase purchase = askPurchase();
-                if (purchase != null) {
-                    processPurchase(purchase);
-                } else {
-                    print("");
-                }
+                askPurchase();
                 break;
             case "3":
                 printAllPurchasesAndTotalPrice();
@@ -144,26 +141,32 @@ public class BudgetApp {
         print("Total sum: $" + total + "\n");
     }
 
-    private Purchase askPurchase() {
-        Purchase purchase = new Purchase();
+    private void askPurchase() {
+        boolean goBack = false;
 
-        PurchaseType userInputType = askPurchaseTypeForAdding();
-        if (userInputType == null) {
-            return null;
+        while (!goBack) {
+            Purchase purchase = new Purchase();
+
+            PurchaseType userInputType = askPurchaseTypeForAdding();
+            if (userInputType == null) {
+                goBack = true;
+                print("\n");
+                continue;
+            }
+            purchase.setType(userInputType);
+
+            String userInputName = askPurchaseName();
+            purchase.setName(userInputName);
+
+            BigDecimal userInputPrice = askPurchasePrice();
+            purchase.setPrice(userInputPrice);
+
+            processPurchase(purchase);
         }
-        purchase.setType(userInputType);
-
-        String userInputName = askPurchaseName();
-        purchase.setName(userInputName);
-
-        BigDecimal userInputPrice = askPurchasePrice();
-        purchase.setPrice(userInputPrice);
-
-        return purchase;
     }
 
     private String askPurchaseName() {
-        print("\nEnter purchase name:");
+        print("\nEnter purchase name:\n");
         return scan.nextLine();
     }
 
@@ -190,7 +193,6 @@ public class BudgetApp {
         String userInputType = scan.nextLine();
 
         if (userInputType.equals("5")) { // back to menu
-
             return null;
         }
 
@@ -205,7 +207,7 @@ public class BudgetApp {
     }
 
     private BigDecimal askPurchasePrice() {
-        print("Enter its price:");
+        print("Enter its price:\n");
         String price = scan.nextLine();
         return new BigDecimal(price);
     }
