@@ -27,7 +27,7 @@ public class BudgetApp {
             "\n5) All" +
             "\n6) Back" +
             "\n";
-    private final static String ERROR = "Something went wrong, please try again!";
+    private final static String ERROR = "\nSomething went wrong, please try again!\n";
 
     private final Scanner scan;
     private final PurchaseStore purchaseStore;
@@ -86,7 +86,7 @@ public class BudgetApp {
     }
 
     private BigDecimal askForIncome() {
-        print("Enter Income:");
+        print("\nEnter Income:");
         String income = scan.nextLine();
         return new BigDecimal(income);
     }
@@ -94,7 +94,7 @@ public class BudgetApp {
     private void processIncome(BigDecimal newIncome) {
         income.setIncome(newIncome);
         balance.setBalance(newIncome);
-        print("\nIncome was added!\n");
+        print("\nIncome was added!\n\n");
     }
 
     private void printAllPurchasesAndTotalPrice() {
@@ -111,7 +111,7 @@ public class BudgetApp {
 
         BigDecimal total = new BigDecimal(BigInteger.ZERO);
 
-        print("");
+        print("\n");
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             if (purchase.getType().equals(purchaseType)) {
                 print(purchase.getName() + " $" + purchase.getPrice());
@@ -120,7 +120,7 @@ public class BudgetApp {
         }
 
         if (!total.equals(BigDecimal.ZERO)) {
-            print("Total sum: $" + total + "\n");
+            print("\n\nTotal sum: $" + total + "\n");
         }
     }
 
