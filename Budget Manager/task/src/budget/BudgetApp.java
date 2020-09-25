@@ -111,7 +111,7 @@ public class BudgetApp {
 
         BigDecimal total = new BigDecimal(BigInteger.ZERO);
 
-        print("\n");
+        print("\n" + purchaseType.toString() + ":\n");
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             if (purchase.getType().equals(purchaseType)) {
                 print(purchase.getName() + " $" + purchase.getPrice());
@@ -120,7 +120,7 @@ public class BudgetApp {
         }
 
         if (!total.equals(BigDecimal.ZERO)) {
-            print("\n\nTotal sum: $" + total + "\n");
+            print("\n\nTotal sum: $" + total + "\n\n");
         }
     }
 
