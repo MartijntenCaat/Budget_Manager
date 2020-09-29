@@ -86,7 +86,7 @@ public class BudgetApp {
     }
 
     private BigDecimal askForIncome() {
-        print("\nEnter Income:");
+        print("\nEnter Income:\n");
         String income = scan.nextLine();
         return new BigDecimal(income);
     }
@@ -94,7 +94,7 @@ public class BudgetApp {
     private void processIncome(BigDecimal newIncome) {
         income.setIncome(newIncome);
         balance.setBalance(newIncome);
-        print("\nIncome was added!\n\n");
+        print("Income was added!\n\n");
     }
 
     private void printAllPurchasesAndTotalPrice() {
@@ -103,24 +103,43 @@ public class BudgetApp {
             return;
         }
 
-        PurchaseType purchaseType = askPurchaseTypeForChecking();
+        boolean goBack = false;
 
-        if (purchaseType == null) {
-            return;
-        }
+        while (!goBack) {
 
-        BigDecimal total = new BigDecimal(BigInteger.ZERO);
+            PurchaseType purchaseType = askPurchaseTypeForChecking();
 
-        print("\n" + purchaseType.toString() + ":\n");
-        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-            if (purchase.getType().equals(purchaseType)) {
-                print(purchase.getName() + " $" + purchase.getPrice());
-                total = total.add(purchase.getPrice());
+            if (purchaseType == null) {
+                goBack = true;
+                print("\n");
+                continue;
             }
-        }
 
-        if (!total.equals(BigDecimal.ZERO)) {
-            print("\n\nTotal sum: $" + total + "\n\n");
+            BigDecimal total = new BigDecimal(BigInteger.ZERO);
+
+            print("\n" + purchaseType.toString() + ":\n");
+
+            if (!purchaseType.getValue().equals(PurchaseType.ALL.getValue())) {
+                for (Purchase purchase : purchaseStore.getPurchaseStore()) {
+                    if (purchase.getType().equals(purchaseType)) {
+                        print(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));
+                        total = total.add(purchase.getPrice());
+                    }
+                }
+//                print("\n");
+            } else {
+                for (Purchase purchase : purchaseStore.getPurchaseStore()) {
+                    print(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));
+                    total = total.add(purchase.getPrice());
+                }
+            }
+
+            if (!total.equals(BigDecimal.ZERO)) {
+
+                print("Total sum: $" + String.format("%.2f%n", total));
+
+
+            }
         }
     }
 
