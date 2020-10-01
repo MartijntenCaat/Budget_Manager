@@ -1,0 +1,7 @@
+Header
+broek;CLOTHES;15
+broek;CLOTHES;15
+trui;CLOTHES;15
+broek;CLOTHES;15
+trui;CLOTHES;15
+sokken;ENTERTAINMENT;5
