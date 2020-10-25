@@ -10,6 +10,8 @@ public class BudgetApp {
             "\n2) Add purchase" +
             "\n3) Show list of purchases" +
             "\n4) Balance" +
+            "\n5) Save" +
+            "\n6) Load" +
             "\n0) Exit" +
             "\n";
     private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
@@ -67,6 +69,7 @@ public class BudgetApp {
             case "5":
                 SavePurchases savePurchases = new SavePurchases();
                 savePurchases.savePurchases(purchaseStore);
+                print("\nPurchases were saved!\n\n");
                 break;
             case "0":
                 exitBudgetApp();

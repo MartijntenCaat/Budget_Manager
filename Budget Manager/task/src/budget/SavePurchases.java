@@ -29,7 +29,6 @@ public class SavePurchases {
         } catch (IOException e) {
             System.out.println("Something went wrong: \n" + e);
         }
-
     }
 
 }
