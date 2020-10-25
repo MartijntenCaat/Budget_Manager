@@ -32,9 +32,9 @@ public class BudgetApp {
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
 
     private final Scanner scan;
-    private final PurchaseStore purchaseStore;
     private final Income income;
     private final Balance balance;
+    private PurchaseStore purchaseStore;
     private boolean isOnline;
 
     public BudgetApp() {
@@ -67,9 +67,14 @@ public class BudgetApp {
                 printBalance();
                 break;
             case "5":
-                SavePurchases savePurchases = new SavePurchases();
+                SaveLoadPurchases savePurchases = new SaveLoadPurchases();
                 savePurchases.savePurchases(purchaseStore);
                 print("\nPurchases were saved!\n\n");
+                break;
+            case "6":
+                SaveLoadPurchases loadPurchases = new SaveLoadPurchases();
+                this.purchaseStore = loadPurchases.loadPurchases();
+                print("\nPurchases were loaded!\n\n");
                 break;
             case "0":
                 exitBudgetApp();
@@ -80,7 +85,7 @@ public class BudgetApp {
     }
 
     private void exitBudgetApp() {
-        print("\nBye!");
+        print("\nBye!\n\n");
         isOnline = false;
     }
 
@@ -106,7 +111,7 @@ public class BudgetApp {
 
     private void printAllPurchasesAndTotalPrice() {
         if (purchaseStore.getPurchaseStore().isEmpty()) {
-            print("\nPurchase list is empty\n");
+            print("\nPurchase list is empty\n\n");
             return;
         }
 
@@ -133,7 +138,6 @@ public class BudgetApp {
                         total = total.add(purchase.getPrice());
                     }
                 }
-//                print("\n");
             } else {
                 for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                     print(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));

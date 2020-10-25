@@ -1,7 +1,3 @@
-Header
-broek;CLOTHES;15
-broek;CLOTHES;15
-trui;CLOTHES;15
-broek;CLOTHES;15
-trui;CLOTHES;15
-sokken;ENTERTAINMENT;5
+Brrod;FOOD;1
+Brrod;FOOD;1
+Broek;CLOTHES;5
