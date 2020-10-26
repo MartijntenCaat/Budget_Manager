@@ -77,20 +77,26 @@ public class BudgetApp {
 //                this.purchaseStore = loadPurchases.loadPurchases();
 
                 try (Scanner scanner = new Scanner(new File("purchases.txt"))) {
-                    balance.setBalance(new BigDecimal(Integer.parseInt(scanner.nextLine())));
+                    balance.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
 
                     while (scanner.hasNext()) {
                         Purchase purchase = new Purchase();
-                        String[] input = scanner.nextLine().split(";");
-                        purchase.setName(input[0]);
+                        String input = scanner.nextLine();
+                        System.out.println("Line: " + input);
+                        String[] inputParts = scanner.nextLine().split(";");
+                        purchase.setName(inputParts[0]);
+                        System.out.println(purchase.getName());
 
+                        // TODO this aint right, fix this. Check output on loading, type is not loaded correctly
                         for (PurchaseType purchaseType : PurchaseType.values()) {
-                            if (purchaseType.getValue().equals(input[1])) {
+                            if (purchaseType.getValue().equals(inputParts[1])) {
                                 purchase.setType(purchaseType);
+                                System.out.println(purchase.getType().toString());
                             }
                         }
 
-                        purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(input[2])));
+                        purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(inputParts[2])));
+                        System.out.println(purchase.getPrice().toString());
                     }
 
                 } catch (FileNotFoundException e) {

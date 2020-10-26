@@ -14,17 +14,16 @@ public class SaveLoadPurchases {
     public void savePurchases(PurchaseStore purchaseStore, Balance balance) {
 
         try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.write("Balance: " + balance.getBalance().toString());
+            fileWriter.write(balance.getBalance().toString() + "\n");
 
-            StringBuilder line = new StringBuilder();
             for (Purchase purchase : purchaseStore.getPurchaseStore()) {
+                StringBuilder line = new StringBuilder();
                 line.append(purchase.getName())
                         .append(";")
                         .append(purchase.getType())
                         .append(";")
-                        .append(purchase.getPrice())
-                        .append("\n");
-                fileWriter.write(line.toString());
+                        .append(purchase.getPrice());
+                fileWriter.write(line.toString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: \n" + e);
