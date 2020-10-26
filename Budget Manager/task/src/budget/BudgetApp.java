@@ -1,5 +1,7 @@
 package budget;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Scanner;
@@ -30,10 +32,9 @@ public class BudgetApp {
             "\n6) Back" +
             "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
-
     private final Scanner scan;
     private final Income income;
-    private final Balance balance;
+    private Balance balance;
     private PurchaseStore purchaseStore;
     private boolean isOnline;
 
@@ -68,12 +69,35 @@ public class BudgetApp {
                 break;
             case "5":
                 SaveLoadPurchases savePurchases = new SaveLoadPurchases();
-                savePurchases.savePurchases(purchaseStore);
+                savePurchases.savePurchases(purchaseStore, balance);
                 print("\nPurchases were saved!\n\n");
                 break;
             case "6":
-                SaveLoadPurchases loadPurchases = new SaveLoadPurchases();
-                this.purchaseStore = loadPurchases.loadPurchases();
+//                SaveLoadPurchases loadPurchases = new SaveLoadPurchases();
+//                this.purchaseStore = loadPurchases.loadPurchases();
+
+                try (Scanner scanner = new Scanner(new File("purchases.txt"))) {
+                    balance.setBalance(new BigDecimal(Integer.parseInt(scanner.nextLine())));
+
+                    while (scanner.hasNext()) {
+                        Purchase purchase = new Purchase();
+                        String[] input = scanner.nextLine().split(";");
+                        purchase.setName(input[0]);
+
+                        for (PurchaseType purchaseType : PurchaseType.values()) {
+                            if (purchaseType.getValue().equals(input[1])) {
+                                purchase.setType(purchaseType);
+                            }
+                        }
+
+                        purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(input[2])));
+                    }
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("File not found: \n" + e);
+                }
+
+
                 print("\nPurchases were loaded!\n\n");
                 break;
             case "0":
