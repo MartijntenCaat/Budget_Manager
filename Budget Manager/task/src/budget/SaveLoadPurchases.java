@@ -14,7 +14,7 @@ public class SaveLoadPurchases {
     public void savePurchases(PurchaseStore purchaseStore, Balance balance) {
 
         try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.write(balance.getBalance().toString() + "\n");
+            fileWriter.write(purchaseStore.getBalance().getBalance().toString() + "\n");
 
             for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                 StringBuilder line = new StringBuilder();

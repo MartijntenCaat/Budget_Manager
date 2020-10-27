@@ -33,16 +33,16 @@ public class BudgetApp {
             "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
     private final Scanner scan;
-    private final Income income;
-    private Balance balance;
+    //private final Income income;
+    //private Balance balance;
     private PurchaseStore purchaseStore;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
-        this.income = new Income();
-        this.balance = new Balance();
+//        this.income = new Income();
+//        this.balance = new Balance();
         this.isOnline = true;
     }
 
