@@ -20,7 +20,7 @@ public class SaveLoadPurchases {
                 StringBuilder line = new StringBuilder();
                 line.append(purchase.getName())
                         .append(";")
-                        .append(purchase.getType())
+                        .append(purchase.getType().getValue())
                         .append(";")
                         .append(purchase.getPrice());
                 fileWriter.write(line.toString() + "\n");

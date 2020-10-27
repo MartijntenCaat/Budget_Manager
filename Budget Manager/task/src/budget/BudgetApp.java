@@ -81,22 +81,19 @@ public class BudgetApp {
 
                     while (scanner.hasNext()) {
                         Purchase purchase = new Purchase();
-                        String input = scanner.nextLine();
-                        System.out.println("Line: " + input);
                         String[] inputParts = scanner.nextLine().split(";");
-                        purchase.setName(inputParts[0]);
-                        System.out.println(purchase.getName());
 
-                        // TODO this aint right, fix this. Check output on loading, type is not loaded correctly
+                        purchase.setName(inputParts[0]);
+
                         for (PurchaseType purchaseType : PurchaseType.values()) {
                             if (purchaseType.getValue().equals(inputParts[1])) {
                                 purchase.setType(purchaseType);
-                                System.out.println(purchase.getType().toString());
                             }
                         }
 
                         purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(inputParts[2])));
-                        System.out.println(purchase.getPrice().toString());
+
+                        purchaseStore.addPurchase(purchase);
                     }
 
                 } catch (FileNotFoundException e) {
