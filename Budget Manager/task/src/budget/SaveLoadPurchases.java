@@ -11,10 +11,10 @@ public class SaveLoadPurchases {
         this.file = new File("purchases.txt");
     }
 
-    public void savePurchases(PurchaseStore purchaseStore, Balance balance) {
+    public void savePurchases(PurchaseStore purchaseStore) {
 
         try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.write(purchaseStore.getBalance().getBalance().toString() + "\n");
+            fileWriter.write(purchaseStore.getBalance().toString() + "\n");
 
             for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                 StringBuilder line = new StringBuilder();

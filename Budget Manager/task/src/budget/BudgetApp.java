@@ -33,16 +33,12 @@ public class BudgetApp {
             "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
     private final Scanner scan;
-    //private final Income income;
-    //private Balance balance;
     private PurchaseStore purchaseStore;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
-//        this.income = new Income();
-//        this.balance = new Balance();
         this.isOnline = true;
     }
 
@@ -69,7 +65,7 @@ public class BudgetApp {
                 break;
             case "5":
                 SaveLoadPurchases savePurchases = new SaveLoadPurchases();
-                savePurchases.savePurchases(purchaseStore, balance);
+                savePurchases.savePurchases(purchaseStore);
                 print("\nPurchases were saved!\n\n");
                 break;
             case "6":
@@ -77,7 +73,7 @@ public class BudgetApp {
 //                this.purchaseStore = loadPurchases.loadPurchases();
 
                 try (Scanner scanner = new Scanner(new File("purchases.txt"))) {
-                    balance.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
+                    purchaseStore.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
 
                     while (scanner.hasNext()) {
                         Purchase purchase = new Purchase();
@@ -131,8 +127,8 @@ public class BudgetApp {
     }
 
     private void processIncome(BigDecimal newIncome) {
-        income.setIncome(newIncome);
-        balance.setBalance(newIncome);
+        purchaseStore.setIncome(newIncome);
+        purchaseStore.setBalance(newIncome);
         print("Income was added!\n\n");
     }
 
@@ -254,12 +250,12 @@ public class BudgetApp {
 
     private void processPurchase(Purchase purchase) {
         purchaseStore.addPurchase(purchase);
-        balance.subtractFromBalance(purchase.getPrice());
+        purchaseStore.subtractFromBalance(purchase.getPrice());
         print("Purchase was added!\n");
     }
 
     public void printBalance() {
-        print("\nBalance: $" + String.format("%.2f%n", balance.getBalance()) + "\n");
+        print("\nBalance: $" + String.format("%.2f%n", purchaseStore.getBalance()) + "\n");
     }
 
 }

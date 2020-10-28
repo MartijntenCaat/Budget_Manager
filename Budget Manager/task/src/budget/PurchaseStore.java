@@ -1,16 +1,17 @@
 package budget;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 
 public class PurchaseStore {
     private final LinkedHashSet<Purchase> purchaseStore;
-    private Balance balance;
-    private Income income;
+    private BigDecimal balance;
+    private BigDecimal income;
 
     public PurchaseStore() {
         this.purchaseStore = new LinkedHashSet<>();
-        this.balance = new Balance();
-        this.income = new Income();
+        this.balance = BigDecimal.ZERO;
+        this.income = BigDecimal.ZERO;
     }
 
     public LinkedHashSet<Purchase> getPurchaseStore() {
@@ -21,7 +22,23 @@ public class PurchaseStore {
         purchaseStore.add(purchase);
     }
 
-    public Balance getBalance() {
+    public BigDecimal getBalance() {
         return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void subtractFromBalance(BigDecimal purchasePrice) {
+        setBalance(balance.subtract(purchasePrice));
+    }
+
+    public BigDecimal getIncome() {
+        return income;
+    }
+
+    public void setIncome(BigDecimal income) {
+        this.income = income;
     }
 }
