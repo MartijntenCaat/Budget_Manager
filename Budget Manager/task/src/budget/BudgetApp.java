@@ -10,6 +10,8 @@ public class BudgetApp {
             "\n2) Add purchase" +
             "\n3) Show list of purchases" +
             "\n4) Balance" +
+            "\n5) Save" +
+            "\n6) Load" +
             "\n0) Exit" +
             "\n";
     private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
@@ -28,18 +30,13 @@ public class BudgetApp {
             "\n6) Back" +
             "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
-
     private final Scanner scan;
-    private final PurchaseStore purchaseStore;
-    private final Income income;
-    private final Balance balance;
+    private PurchaseStore purchaseStore;
     private boolean isOnline;
 
     public BudgetApp() {
         this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
-        this.income = new Income();
-        this.balance = new Balance();
         this.isOnline = true;
     }
 
@@ -64,6 +61,16 @@ public class BudgetApp {
             case "4":
                 printBalance();
                 break;
+            case "5":
+                SavePurchases savePurchases = new SavePurchases();
+                savePurchases.savePurchases(purchaseStore);
+                print("\nPurchases were saved!\n\n");
+                break;
+            case "6":
+                LoadPurchases loadPurchases = new LoadPurchases();
+                this.purchaseStore = loadPurchases.loadPurchases();
+                print("\nPurchases were loaded!\n\n");
+                break;
             case "0":
                 exitBudgetApp();
                 break;
@@ -73,7 +80,7 @@ public class BudgetApp {
     }
 
     private void exitBudgetApp() {
-        print("\nBye!");
+        print("\nBye!\n\n");
         isOnline = false;
     }
 
@@ -92,14 +99,14 @@ public class BudgetApp {
     }
 
     private void processIncome(BigDecimal newIncome) {
-        income.setIncome(newIncome);
-        balance.setBalance(newIncome);
+        purchaseStore.setIncome(newIncome);
+        purchaseStore.setBalance(newIncome);
         print("Income was added!\n\n");
     }
 
     private void printAllPurchasesAndTotalPrice() {
         if (purchaseStore.getPurchaseStore().isEmpty()) {
-            print("\nPurchase list is empty\n");
+            print("\nPurchase list is empty\n\n");
             return;
         }
 
@@ -126,7 +133,6 @@ public class BudgetApp {
                         total = total.add(purchase.getPrice());
                     }
                 }
-//                print("\n");
             } else {
                 for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                     print(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));
@@ -216,12 +222,12 @@ public class BudgetApp {
 
     private void processPurchase(Purchase purchase) {
         purchaseStore.addPurchase(purchase);
-        balance.subtractFromBalance(purchase.getPrice());
+        purchaseStore.subtractFromBalance(purchase.getPrice());
         print("Purchase was added!\n");
     }
 
     public void printBalance() {
-        print("\nBalance: $" + String.format("%.2f%n", balance.getBalance()) + "\n");
+        print("\nBalance: $" + String.format("%.2f%n", purchaseStore.getBalance()) + "\n");
     }
 
 }
