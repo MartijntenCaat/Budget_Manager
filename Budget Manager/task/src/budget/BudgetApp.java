@@ -64,7 +64,7 @@ public class BudgetApp {
                 printBalance();
                 break;
             case "5":
-                SaveLoadPurchases savePurchases = new SaveLoadPurchases();
+                SavePurchases savePurchases = new SavePurchases();
                 savePurchases.savePurchases(purchaseStore);
                 print("\nPurchases were saved!\n\n");
                 break;

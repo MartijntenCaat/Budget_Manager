@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SaveLoadPurchases {
+public class SavePurchases {
     private final File file;
 
-    public SaveLoadPurchases() {
+    public SavePurchases() {
         this.file = new File("purchases.txt");
     }
 
