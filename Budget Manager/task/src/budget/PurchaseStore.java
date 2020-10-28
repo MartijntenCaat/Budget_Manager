@@ -34,10 +34,6 @@ public class PurchaseStore {
         setBalance(balance.subtract(purchasePrice));
     }
 
-    public BigDecimal getIncome() {
-        return income;
-    }
-
     public void setIncome(BigDecimal income) {
         this.income = income;
     }

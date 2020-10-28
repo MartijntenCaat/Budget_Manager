@@ -1,7 +1,5 @@
 package budget;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Scanner;
@@ -69,34 +67,8 @@ public class BudgetApp {
                 print("\nPurchases were saved!\n\n");
                 break;
             case "6":
-//                SaveLoadPurchases loadPurchases = new SaveLoadPurchases();
-//                this.purchaseStore = loadPurchases.loadPurchases();
-
-                try (Scanner scanner = new Scanner(new File("purchases.txt"))) {
-                    purchaseStore.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
-
-                    while (scanner.hasNext()) {
-                        Purchase purchase = new Purchase();
-                        String[] inputParts = scanner.nextLine().split(";");
-
-                        purchase.setName(inputParts[0]);
-
-                        for (PurchaseType purchaseType : PurchaseType.values()) {
-                            if (purchaseType.getValue().equals(inputParts[1])) {
-                                purchase.setType(purchaseType);
-                            }
-                        }
-
-                        purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(inputParts[2])));
-
-                        purchaseStore.addPurchase(purchase);
-                    }
-
-                } catch (FileNotFoundException e) {
-                    System.out.println("File not found: \n" + e);
-                }
-
-
+                LoadPurchases loadPurchases = new LoadPurchases();
+                this.purchaseStore = loadPurchases.loadPurchases();
                 print("\nPurchases were loaded!\n\n");
                 break;
             case "0":

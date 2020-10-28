@@ -1,8 +1,9 @@
 package budget;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class LoadPurchases {
     private final File file;
@@ -11,51 +12,34 @@ public class LoadPurchases {
         this.file = new File("purchases.txt");
     }
 
-    public void savePurchases(PurchaseStore purchaseStore) {
+    public PurchaseStore loadPurchases() {
+        PurchaseStore purchaseStore = new PurchaseStore();
 
-        try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.write(purchaseStore.getBalance().toString() + "\n");
+        try (Scanner scanner = new Scanner(file)) {
 
-            for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-                StringBuilder line = new StringBuilder();
-                line.append(purchase.getName())
-                        .append(";")
-                        .append(purchase.getType().getValue())
-                        .append(";")
-                        .append(purchase.getPrice());
-                fileWriter.write(line.toString() + "\n");
+            purchaseStore.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
+
+            while (scanner.hasNext()) {
+                Purchase purchase = new Purchase();
+                String[] inputParts = scanner.nextLine().split(";");
+
+                purchase.setName(inputParts[0]);
+
+                for (PurchaseType purchaseType : PurchaseType.values()) {
+                    if (purchaseType.getValue().equals(inputParts[1])) {
+                        purchase.setType(purchaseType);
+                    }
+                }
+
+                purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(inputParts[2])));
+
+                purchaseStore.addPurchase(purchase);
             }
-        } catch (IOException e) {
-            System.out.println("Something went wrong: \n" + e);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: \n" + e);
         }
+
+        return purchaseStore;
     }
-
-//    public PurchaseStore loadPurchases() {
-//        PurchaseStore purchaseStore = new PurchaseStore();
-//
-//        try (Scanner scanner = new Scanner(file)) {
-//
-//
-//            while (scanner.hasNext()) {
-//                Purchase purchase = new Purchase();
-//                String[] input = scanner.nextLine().split(";");
-//                purchase.setName(input[0]);
-//
-//                for (PurchaseType purchaseType : PurchaseType.values()) {
-//                    if (purchaseType.getValue().equals(input[1])) {
-//                        purchase.setType(purchaseType);
-//                    }
-//                }
-//
-//                purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(input[2])));
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found: \n" + e);
-//        }
-//
-//        return purchaseStore;
-//
-//    }
-
 }

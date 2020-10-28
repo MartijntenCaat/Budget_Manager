@@ -17,45 +17,16 @@ public class SavePurchases {
             fileWriter.write(purchaseStore.getBalance().toString() + "\n");
 
             for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-                StringBuilder line = new StringBuilder();
-                line.append(purchase.getName())
-                        .append(";")
-                        .append(purchase.getType().getValue())
-                        .append(";")
-                        .append(purchase.getPrice());
-                fileWriter.write(line.toString() + "\n");
+                String line = purchase.getName() +
+                        ";" +
+                        purchase.getType().getValue() +
+                        ";" +
+                        purchase.getPrice();
+                fileWriter.write(line + "\n");
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: \n" + e);
         }
     }
-
-//    public PurchaseStore loadPurchases() {
-//        PurchaseStore purchaseStore = new PurchaseStore();
-//
-//        try (Scanner scanner = new Scanner(file)) {
-//
-//
-//            while (scanner.hasNext()) {
-//                Purchase purchase = new Purchase();
-//                String[] input = scanner.nextLine().split(";");
-//                purchase.setName(input[0]);
-//
-//                for (PurchaseType purchaseType : PurchaseType.values()) {
-//                    if (purchaseType.getValue().equals(input[1])) {
-//                        purchase.setType(purchaseType);
-//                    }
-//                }
-//
-//                purchase.setPrice(BigDecimal.valueOf(Double.parseDouble(input[2])));
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found: \n" + e);
-//        }
-//
-//        return purchaseStore;
-//
-//    }
 
 }
