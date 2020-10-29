@@ -12,6 +12,7 @@ public class BudgetApp {
             "\n4) Balance" +
             "\n5) Save" +
             "\n6) Load" +
+            "\n7) Analyze (Sort)" +
             "\n0) Exit" +
             "\n";
     private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
@@ -28,6 +29,12 @@ public class BudgetApp {
             "\n4) Other" +
             "\n5) All" +
             "\n6) Back" +
+            "\n";
+    private final static String SORT_MENU = "\nHow do you want to sort?" +
+            "\n1) Sort all purchases" +
+            "\n2) Sort by type" +
+            "\n3) Sort certain type" +
+            "\n4) Back" +
             "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
     private final Scanner scan;
@@ -71,6 +78,8 @@ public class BudgetApp {
                 this.purchaseStore = loadPurchases.loadPurchases();
                 print("\nPurchases were loaded!\n\n");
                 break;
+            case "7":
+                print(SORT_MENU);
             case "0":
                 exitBudgetApp();
                 break;
