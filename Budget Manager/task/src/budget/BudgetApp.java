@@ -2,6 +2,7 @@ package budget;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
@@ -51,6 +52,12 @@ public class BudgetApp {
         System.out.print(string);
     }
 
+    public void printList(ArrayList<String> list) {
+        for (String s : list) {
+            print(s);
+        }
+    }
+
     public void run() {
         print(APP_MENU);
         String userInput = readUserInput();
@@ -80,6 +87,16 @@ public class BudgetApp {
                 break;
             case "7":
                 print(SORT_MENU);
+                var input = readUserInput();
+
+                switch (input) {
+                    case "1":
+                        printList(new SortAll().sort(purchaseStore));
+                        break;
+                    case "4":
+                        print("\n");
+                        break;
+                }
             case "0":
                 exitBudgetApp();
                 break;
