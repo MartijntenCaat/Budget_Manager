@@ -6,16 +6,11 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class LoadPurchases {
-    private final File file;
 
-    public LoadPurchases() {
-        this.file = new File("purchases.txt");
-    }
-
-    public PurchaseStore loadPurchases() {
+    public static PurchaseStore loadPurchases() {
         PurchaseStore purchaseStore = new PurchaseStore();
 
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(new File("purchases.txt"))) {
 
             purchaseStore.setBalance(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
 
@@ -37,9 +32,10 @@ public class LoadPurchases {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: \n" + e);
+            BudgetApp.print("File not found: \n" + e);
         }
-
+        BudgetApp.print("\nPurchases were loaded!\n\n");
         return purchaseStore;
     }
+
 }

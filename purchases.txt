@@ -1,5 +1,26 @@
--62.59000015258789
-food;FOOD;12.50
-clothes;CLOTHES;23
-enter;ENTERTAINMENT;23.09
-asjdf;OTHER;4
+-3579.07
+test;1;5
+Broekie;2;75.00
+Televisie met kastje en decoder;3;1500.07
+Restschuld;4;1500.00
+Meer restschuld;4;499
+test;1;5
+Broekie;2;75.00
+Televisie met kastje en decoder;3;1500.07
+Restschuld;4;1500.00
+Meer restschuld;4;499
+test;1;5
+Broekie;2;75.00
+Televisie met kastje en decoder;3;1500.07
+Restschuld;4;1500.00
+Meer restschuld;4;499
+test;1;5
+Broekie;2;75.00
+Televisie met kastje en decoder;3;1500.07
+Restschuld;4;1500.00
+Meer restschuld;4;499
+test;1;5
+Broekie;2;75.00
+Televisie met kastje en decoder;3;1500.07
+Restschuld;4;1500.00
+Meer restschuld;4;499

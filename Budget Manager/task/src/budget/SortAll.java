@@ -11,7 +11,7 @@ public class SortAll implements ISortMethod {
     public ArrayList<String> sort(PurchaseStore purchaseStore) {
         ArrayList<String> result = new ArrayList<>();
 
-        Map<BigDecimal, Integer> purchaseListWithId = new HashMap<>();
+        Map<BigDecimal, Long> purchaseListWithId = new HashMap<>();
 
         for (Purchase purchase : purchaseStore.getPurchaseStore()) {
             purchaseListWithId.put(purchase.getPrice(), purchase.getId());
@@ -19,7 +19,7 @@ public class SortAll implements ISortMethod {
 
         purchaseListWithId.entrySet()
                 .stream()
-                .sorted(Map.Entry.<BigDecimal, Integer>comparingByKey())
+                .sorted(Map.Entry.<BigDecimal, Long>comparingByKey())
                 .forEach(System.out::println);
 
 

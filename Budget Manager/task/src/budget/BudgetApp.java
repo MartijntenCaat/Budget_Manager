@@ -48,7 +48,7 @@ public class BudgetApp {
         this.isOnline = true;
     }
 
-    public void print(String string) {
+    public static void print(String string) {
         System.out.print(string);
     }
 
@@ -76,14 +76,10 @@ public class BudgetApp {
                 printBalance();
                 break;
             case "5":
-                SavePurchases savePurchases = new SavePurchases();
-                savePurchases.savePurchases(purchaseStore);
-                print("\nPurchases were saved!\n\n");
+                SavePurchases.savePurchases(purchaseStore);
                 break;
             case "6":
-                LoadPurchases loadPurchases = new LoadPurchases();
-                this.purchaseStore = loadPurchases.loadPurchases();
-                print("\nPurchases were loaded!\n\n");
+                this.purchaseStore = LoadPurchases.loadPurchases();
                 break;
             case "7":
                 print(SORT_MENU);

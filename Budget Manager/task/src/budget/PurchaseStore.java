@@ -34,7 +34,12 @@ public class PurchaseStore {
         setBalance(balance.subtract(purchasePrice));
     }
 
-    public void setIncome(BigDecimal income) {
-        this.income = income;
+    // TODO this doesnt work yet
+    public void setIncome(BigDecimal newIncome) {
+        if (income.intValue() > 0) {
+            this.income = income.add(newIncome);
+        } else {
+            this.income = newIncome;
+        }
     }
 }
