@@ -3,12 +3,19 @@ package budget;
 import java.math.BigDecimal;
 
 public class Purchase {
+    private int id;
+    private int latestId = 0;
     private PurchaseType type;
     private String name;
     private BigDecimal price;
 
     public Purchase() {
-        this.type = null;
+        this.id = latestId;
+        latestId++;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public PurchaseType getType() {
