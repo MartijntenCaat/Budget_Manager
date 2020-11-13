@@ -89,6 +89,11 @@ public class BudgetApp {
                     case "1":
                         printList(new SortAll().sort(purchaseStore));
                         break;
+                    case "2":
+                        printList(new SortByType().sort(purchaseStore));
+                        break;
+                    case "3":
+                        printList(new SortCertainType().sort(purchaseStore));
                     case "4":
                         print("\n");
                         break;
