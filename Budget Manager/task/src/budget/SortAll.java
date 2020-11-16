@@ -1,36 +1,23 @@
 package budget;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class SortAll implements ISortMethod {
 
     @Override
-    public ArrayList<String> sort(PurchaseStore purchaseStore) {
-        ArrayList<String> result = new ArrayList<>();
+    public Purchase[] sort(PurchaseStore purchaseStore) {
 
-        Map<BigDecimal, Long> purchaseListWithId = new HashMap<>();
+        Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
 
-        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-            purchaseListWithId.put(purchase.getPrice(), purchase.getId());
-        }
-
-        purchaseListWithId.entrySet()
-                .stream()
-                .sorted(Map.Entry.<BigDecimal, Long>comparingByKey())
-                .forEach(System.out::println);
-
-
-        int lowestPrice = 0;
-        for (Purchase purchase : purchaseStore.getPurchaseStore()) {
-            if (purchase.getPrice().intValue() > lowestPrice) {
-
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                /* if a pair of adjacent elements has the wrong order it swaps them */
+                if (array[j].getPrice().longValue() < array[j + 1].getPrice().longValue()) {
+                    Purchase temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
             }
         }
-
-
-        return new ArrayList<String>();
+        return array;
     }
+
 }
