@@ -11,7 +11,7 @@ public class SortByType implements ISortMethod {
     public ArrayList<String> sort(PurchaseStore purchaseStore) {
 
         Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
-        Purchase[] sortedArray = bubbleSort(array);
+        Purchase[] sortedArray = BubbleSort.bubbleSort(array);
 
         Map<String, BigDecimal> purchaseTypeMap = new LinkedHashMap<>();
 
@@ -40,20 +40,6 @@ public class SortByType implements ISortMethod {
 
         result.add("Total sum: $" + String.format("%.2f%n", totalOfAllTypes) + "\n");
         return result;
-    }
-
-    private Purchase[] bubbleSort(Purchase[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = 0; j < array.length - i - 1; j++) {
-                /* if a pair of adjacent elements has the wrong order it swaps them */
-                if (array[j].getPrice().longValue() < array[j + 1].getPrice().longValue()) {
-                    Purchase temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                }
-            }
-        }
-        return array;
     }
 
 }
