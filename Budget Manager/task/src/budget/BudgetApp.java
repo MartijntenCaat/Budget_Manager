@@ -98,6 +98,7 @@ public class BudgetApp {
                         print("\n");
                         break;
                 }
+                break;
             case "0":
                 exitBudgetApp();
                 break;

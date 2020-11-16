@@ -1,11 +1,59 @@
 package budget;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SortByType implements ISortMethod {
     @Override
     public ArrayList<String> sort(PurchaseStore purchaseStore) {
 
-        return null;
+        Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
+        Purchase[] sortedArray = bubbleSort(array);
+
+        Map<String, BigDecimal> purchaseTypeMap = new LinkedHashMap<>();
+
+        for (Purchase purchase : sortedArray) {
+            String type = purchase.getType().toString();
+            var price = purchase.getPrice();
+
+
+            if (purchaseTypeMap.containsKey(type)) {
+                BigDecimal typePriceTotal = purchaseTypeMap.get(type);
+                typePriceTotal = typePriceTotal.add((purchase.getPrice()));
+                purchaseTypeMap.put(type, typePriceTotal);
+            } else {
+                purchaseTypeMap.put(type, price);
+            }
+        }
+
+        BigDecimal totalOfAllTypes = new BigDecimal(BigInteger.ZERO);
+        ArrayList<String> result = new ArrayList<>();
+
+        result.add("\nTypes:\n");
+        for (String type : purchaseTypeMap.keySet()) {
+            result.add(type + " $" + String.format("%.2f%n", purchaseTypeMap.get(type)));
+            totalOfAllTypes = totalOfAllTypes.add(purchaseTypeMap.get(type));
+        }
+
+        result.add("Total sum: $" + String.format("%.2f%n", totalOfAllTypes) + "\n");
+        return result;
     }
+
+    private Purchase[] bubbleSort(Purchase[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                /* if a pair of adjacent elements has the wrong order it swaps them */
+                if (array[j].getPrice().longValue() < array[j + 1].getPrice().longValue()) {
+                    Purchase temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        return array;
+    }
+
 }
