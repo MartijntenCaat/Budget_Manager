@@ -1,7 +1,9 @@
 package budget;
 
+import java.util.ArrayList;
+
 public interface ISortMethod {
 
-    Purchase[] sort(PurchaseStore purchaseStore);
+    ArrayList<String> sort(PurchaseStore purchaseStore);
 
 }

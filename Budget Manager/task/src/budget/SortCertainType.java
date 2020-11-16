@@ -1,8 +1,10 @@
 package budget;
 
+import java.util.ArrayList;
+
 public class SortCertainType implements ISortMethod {
     @Override
-    public Purchase[] sort(PurchaseStore purchaseStore) {
+    public ArrayList<String> sort(PurchaseStore purchaseStore) {
         return null;
     }
 }

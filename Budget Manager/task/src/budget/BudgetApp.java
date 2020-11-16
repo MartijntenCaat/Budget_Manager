@@ -2,6 +2,7 @@ package budget;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
@@ -51,15 +52,9 @@ public class BudgetApp {
         System.out.print(string);
     }
 
-    public void printSortingResult(Purchase[] array) {
-        BigDecimal total = new BigDecimal(BigInteger.ZERO);
-        for (Purchase purchase : array) {
-            print(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));
-            total = total.add(purchase.getPrice());
-        }
-
-        if (!total.equals(BigDecimal.ZERO)) {
-            print("Total sum: $" + String.format("%.2f%n", total));
+    public void printSortingResult(ArrayList<String> result) {
+        for (String s : result) {
+            print(s);
         }
     }
 
