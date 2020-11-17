@@ -23,8 +23,8 @@ public class BudgetApp {
 
     public void printSortingResult(ArrayList<String> result) {
         if (result != null) {
-            for (String s : result) {
-                print(s);
+            for (String string : result) {
+                print(string);
             }
         }
     }
@@ -113,9 +113,7 @@ public class BudgetApp {
         }
 
         boolean goBack = false;
-
         while (!goBack) {
-
             PurchaseType purchaseType = askPurchaseTypeForChecking();
 
             if (purchaseType == null) {
@@ -125,9 +123,7 @@ public class BudgetApp {
             }
 
             BigDecimal total = new BigDecimal(BigInteger.ZERO);
-
             print("\n" + purchaseType.toString() + ":\n");
-
             if (!purchaseType.getValue().equals(PurchaseType.ALL.getValue())) {
                 for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                     if (purchase.getType().equals(purchaseType)) {
@@ -150,9 +146,7 @@ public class BudgetApp {
 
     private void askPurchase() {
         boolean goBack = false;
-
         while (!goBack) {
-            Purchase purchase = new Purchase();
 
             PurchaseType userInputType = askPurchaseTypeForAdding();
             if (userInputType == null) {
@@ -160,14 +154,10 @@ public class BudgetApp {
                 print("\n");
                 continue;
             }
+            Purchase purchase = new Purchase();
             purchase.setType(userInputType);
-
-            String userInputName = askPurchaseName();
-            purchase.setName(userInputName);
-
-            BigDecimal userInputPrice = askPurchasePrice();
-            purchase.setPrice(userInputPrice);
-
+            purchase.setName(askPurchaseName());
+            purchase.setPrice(askPurchasePrice());
             processPurchase(purchase);
         }
     }
