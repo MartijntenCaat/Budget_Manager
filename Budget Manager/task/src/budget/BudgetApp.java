@@ -6,39 +6,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
-
-
-    private final static String PRINT_TYPE_OPTIONS = "\nChoose the type of purchases" +
-            "\n1) Food" +
-            "\n2) Clothes" +
-            "\n3) Entertainment" +
-            "\n4) Other" +
-            "\n5) All" +
-            "\n6) Back" +
-            "\n";
-    private final static String SORT_MENU = "\nHow do you want to sort?" +
-            "\n1) Sort all purchases" +
-            "\n2) Sort by type" +
-            "\n3) Sort certain type" +
-            "\n4) Back" +
-            "\n";
-    private final static String INPUT_SORT_MENU = "\nChoose the type of purchase" +
-            "\n1) Food" +
-            "\n2) Clothes" +
-            "\n3) Entertainment" +
-            "\n4) Other" +
-            "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
     private final Scanner scan;
     private PurchaseStore purchaseStore;
     private boolean isOnline;
-    private Menu menu;
 
     public BudgetApp() {
         this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
         this.isOnline = true;
-        this.menu = new Menu();
     }
 
     public static void print(String string) {
@@ -54,7 +30,7 @@ public class BudgetApp {
     }
 
     public void run() {
-        switch (menu.getOptionFromGeneralMenu()) {
+        switch (Menu.getOptionFromGeneralMenu()) {
             case "1":
                 processIncome(askForIncome());
                 break;
@@ -86,12 +62,8 @@ public class BudgetApp {
 
     private void processSorting() {
         boolean goBack = false;
-
         while (!goBack) {
-            print(SORT_MENU);
-            var input = readUserInput();
-
-            switch (input) {
+            switch (Menu.getOptionFromSortMenu()) {
                 case "1":
                     printSortingResult(new SortAll().sort(purchaseStore));
                     break;
@@ -99,9 +71,7 @@ public class BudgetApp {
                     printSortingResult(new SortByType().sort(purchaseStore));
                     break;
                 case "3":
-                    print(INPUT_SORT_MENU);
-                    var sortInput = readUserInput();
-                    printSortingResult(new SortCertainType().sort(purchaseStore, sortInput));
+                    printSortingResult(new SortCertainType().sort(purchaseStore, Menu.getOptionFromInputSortMenu()));
                     break;
                 case "4":
                     goBack = true;
@@ -173,10 +143,7 @@ public class BudgetApp {
             }
 
             if (!total.equals(BigDecimal.ZERO)) {
-
                 print("Total sum: $" + String.format("%.2f%n", total));
-
-
             }
         }
     }
@@ -211,8 +178,7 @@ public class BudgetApp {
     }
 
     private PurchaseType askPurchaseTypeForChecking() {
-        print(PRINT_TYPE_OPTIONS);
-        String userInputType = scan.nextLine();
+        String userInputType = Menu.getOptionFromPrintTypeMenu();
 
         if (userInputType.equals("6")) { // back to menu
             return null;
@@ -229,7 +195,7 @@ public class BudgetApp {
     }
 
     private PurchaseType askPurchaseTypeForAdding() {
-        String userInput = menu.getOptionFromInputTypeMenu();
+        String userInput = Menu.getOptionFromInputTypeMenu();
 
         if (userInput.equals("5")) { // back to menu
             return null;

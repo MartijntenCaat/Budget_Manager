@@ -3,13 +3,43 @@ package budget;
 import java.util.Scanner;
 
 public class Menu {
-    private Scanner scanner;
 
     public Menu() {
-        this.scanner = new Scanner(System.in);
     }
 
-    public String getOptionFromInputTypeMenu() {
+    public static String getOptionFromInputSortMenu() {
+        System.out.println("\nChoose the type of purchase" +
+                "\n1) Food" +
+                "\n2) Clothes" +
+                "\n3) Entertainment" +
+                "\n4) Other" +
+                "\n");
+        return getUserInput();
+    }
+
+    public static String getOptionFromSortMenu() {
+        System.out.println("\nHow do you want to sort?" +
+                "\n1) Sort all purchases" +
+                "\n2) Sort by type" +
+                "\n3) Sort certain type" +
+                "\n4) Back" +
+                "\n");
+        return getUserInput();
+    }
+
+    public static String getOptionFromPrintTypeMenu() {
+        System.out.println("\nChoose the type of purchases" +
+                "\n1) Food" +
+                "\n2) Clothes" +
+                "\n3) Entertainment" +
+                "\n4) Other" +
+                "\n5) All" +
+                "\n6) Back" +
+                "\n");
+        return getUserInput();
+    }
+
+    public static String getOptionFromInputTypeMenu() {
         System.out.println("\nChoose the type of purchase" +
                 "\n1) Food" +
                 "\n2) Clothes" +
@@ -20,7 +50,7 @@ public class Menu {
         return getUserInput();
     }
 
-    public String getOptionFromGeneralMenu() {
+    public static String getOptionFromGeneralMenu() {
         System.out.println("Choose your action:" +
                 "\n1) Add income" +
                 "\n2) Add purchase" +
@@ -34,8 +64,8 @@ public class Menu {
         return getUserInput();
     }
 
-    private String getUserInput() {
-        return scanner.nextLine();
+    private static String getUserInput() {
+        return new Scanner(System.in).nextLine();
     }
 
 }
