@@ -7,13 +7,7 @@ import java.util.Scanner;
 
 public class BudgetApp {
 
-    private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
-            "\n1) Food" +
-            "\n2) Clothes" +
-            "\n3) Entertainment" +
-            "\n4) Other" +
-            "\n5) Back" +
-            "\n";
+
     private final static String PRINT_TYPE_OPTIONS = "\nChoose the type of purchases" +
             "\n1) Food" +
             "\n2) Clothes" +
@@ -235,15 +229,14 @@ public class BudgetApp {
     }
 
     private PurchaseType askPurchaseTypeForAdding() {
-        print(INPUT_TYPE_OPTIONS);
-        String userInputType = scan.nextLine();
+        String userInput = menu.getOptionFromInputTypeMenu();
 
-        if (userInputType.equals("5")) { // back to menu
+        if (userInput.equals("5")) { // back to menu
             return null;
         }
 
         for (PurchaseType purchaseType : PurchaseType.values()) {
-            if (purchaseType.getValue().equals(userInputType)) {
+            if (purchaseType.getValue().equals(userInput)) {
                 return purchaseType;
             }
         }
