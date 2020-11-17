@@ -19,7 +19,6 @@ public class SortByType implements ISortMethod {
             String type = purchase.getType().toString();
             var price = purchase.getPrice();
 
-
             if (purchaseTypeMap.containsKey(type)) {
                 BigDecimal typePriceTotal = purchaseTypeMap.get(type);
                 typePriceTotal = typePriceTotal.add((purchase.getPrice()));

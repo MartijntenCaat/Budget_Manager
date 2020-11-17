@@ -37,6 +37,12 @@ public class BudgetApp {
             "\n3) Sort certain type" +
             "\n4) Back" +
             "\n";
+    private final static String INPUT_SORT_MENU = "\nChoose the type of purchase" +
+            "\n1) Food" +
+            "\n2) Clothes" +
+            "\n3) Entertainment" +
+            "\n4) Other" +
+            "\n";
     private final static String ERROR = "\nSomething went wrong, please try again!\n";
     private final Scanner scan;
     private PurchaseStore purchaseStore;
@@ -93,7 +99,9 @@ public class BudgetApp {
                         printSortingResult(new SortByType().sort(purchaseStore));
                         break;
                     case "3":
-                        printSortingResult(new SortCertainType().sort(purchaseStore));
+                        print(INPUT_SORT_MENU);
+                        var sortInput = readUserInput();
+                        printSortingResult(new SortCertainType().sort(purchaseStore, sortInput));
                     case "4":
                         print("\n");
                         break;
