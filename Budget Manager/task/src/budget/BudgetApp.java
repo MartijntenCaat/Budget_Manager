@@ -6,16 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
-    private final static String APP_MENU = "Choose your action:" +
-            "\n1) Add income" +
-            "\n2) Add purchase" +
-            "\n3) Show list of purchases" +
-            "\n4) Balance" +
-            "\n5) Save" +
-            "\n6) Load" +
-            "\n7) Analyze (Sort)" +
-            "\n0) Exit" +
-            "\n";
+
     private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
             "\n1) Food" +
             "\n2) Clothes" +
@@ -47,11 +38,13 @@ public class BudgetApp {
     private final Scanner scan;
     private PurchaseStore purchaseStore;
     private boolean isOnline;
+    private Menu menu;
 
     public BudgetApp() {
         this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
         this.isOnline = true;
+        this.menu = new Menu();
     }
 
     public static void print(String string) {
@@ -67,10 +60,7 @@ public class BudgetApp {
     }
 
     public void run() {
-        print(APP_MENU);
-        String userInput = readUserInput();
-
-        switch (userInput) {
+        switch (menu.getOptionFromGeneralMenu()) {
             case "1":
                 processIncome(askForIncome());
                 break;
