@@ -15,7 +15,7 @@ public class SortByType implements ISortMethod {
         Map<String, BigDecimal> purchaseTypeMap = new LinkedHashMap<>();
 
         for (Purchase purchase : sortedArray) {
-            String type = purchase.getType().toString();
+            String type = PurchaseType.toString(purchase.getType().getValue());
             var price = purchase.getPrice();
 
             if (purchaseTypeMap.containsKey(type)) {
@@ -32,7 +32,7 @@ public class SortByType implements ISortMethod {
 
         result.add("\nTypes:\n");
         for (String type : purchaseTypeMap.keySet()) {
-            result.add(type + " $" + String.format("%.2f%n", purchaseTypeMap.get(type)));
+            result.add(type + " - $" + String.format("%.2f%n", purchaseTypeMap.get(type)));
             totalOfAllTypes = totalOfAllTypes.add(purchaseTypeMap.get(type));
         }
 
