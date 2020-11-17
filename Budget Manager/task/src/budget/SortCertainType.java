@@ -12,6 +12,11 @@ public class SortCertainType implements ISortMethod {
     }
 
     public ArrayList<String> sort(PurchaseStore purchaseStore, String type) {
+        if (purchaseStore.getPurchaseStore().isEmpty()) {
+            BudgetApp.print("\nPurchase list is empty\n\n");
+            return null;
+        }
+
         Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
         Purchase[] sortedArray = BubbleSort.bubbleSort(array);
 

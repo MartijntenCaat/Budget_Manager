@@ -59,8 +59,10 @@ public class BudgetApp {
     }
 
     public void printSortingResult(ArrayList<String> result) {
-        for (String s : result) {
-            print(s);
+        if (result != null) {
+            for (String s : result) {
+                print(s);
+            }
         }
     }
 
@@ -88,30 +90,40 @@ public class BudgetApp {
                 this.purchaseStore = LoadPurchases.loadPurchases();
                 break;
             case "7":
-                print(SORT_MENU);
-                var input = readUserInput();
-
-                switch (input) {
-                    case "1":
-                        printSortingResult(new SortAll().sort(purchaseStore));
-                        break;
-                    case "2":
-                        printSortingResult(new SortByType().sort(purchaseStore));
-                        break;
-                    case "3":
-                        print(INPUT_SORT_MENU);
-                        var sortInput = readUserInput();
-                        printSortingResult(new SortCertainType().sort(purchaseStore, sortInput));
-                    case "4":
-                        print("\n");
-                        break;
-                }
+                processSorting();
                 break;
             case "0":
                 exitBudgetApp();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void processSorting() {
+        boolean goBack = false;
+
+        while (!goBack) {
+            print(SORT_MENU);
+            var input = readUserInput();
+
+            switch (input) {
+                case "1":
+                    printSortingResult(new SortAll().sort(purchaseStore));
+                    break;
+                case "2":
+                    printSortingResult(new SortByType().sort(purchaseStore));
+                    break;
+                case "3":
+                    print(INPUT_SORT_MENU);
+                    var sortInput = readUserInput();
+                    printSortingResult(new SortCertainType().sort(purchaseStore, sortInput));
+                    break;
+                case "4":
+                    goBack = true;
+                    print("\n");
+                    break;
+            }
         }
     }
 

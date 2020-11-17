@@ -9,7 +9,6 @@ import java.util.Map;
 public class SortByType implements ISortMethod {
     @Override
     public ArrayList<String> sort(PurchaseStore purchaseStore) {
-
         Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
         Purchase[] sortedArray = BubbleSort.bubbleSort(array);
 
