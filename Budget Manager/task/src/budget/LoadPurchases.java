@@ -32,9 +32,8 @@ public class LoadPurchases {
             }
 
         } catch (FileNotFoundException e) {
-            BudgetApp.print("File not found: \n" + e);
+            System.out.println("File not found: \n" + e);
         }
-        BudgetApp.print("\nPurchases were loaded!\n\n");
         return purchaseStore;
     }
 

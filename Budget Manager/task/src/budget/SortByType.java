@@ -36,7 +36,7 @@ public class SortByType implements ISortMethod {
             totalOfAllTypes = totalOfAllTypes.add(purchaseTypeMap.get(type));
         }
 
-        result.add("Total sum: $" + String.format("%.2f%n", totalOfAllTypes) + "\n");
+        result.add("Total sum: $" + String.format("%.2f%n", totalOfAllTypes));
         return result;
     }
 

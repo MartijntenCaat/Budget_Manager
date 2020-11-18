@@ -7,8 +7,12 @@ public class Menu {
     public Menu() {
     }
 
+    private static void print(String string) {
+        System.out.print(string);
+    }
+
     public static String getOptionFromInputSortMenu() {
-        System.out.println("\nChoose the type of purchase" +
+        print("\nChoose the type of purchase" +
                 "\n1) Food" +
                 "\n2) Clothes" +
                 "\n3) Entertainment" +
@@ -18,7 +22,7 @@ public class Menu {
     }
 
     public static String getOptionFromSortMenu() {
-        System.out.println("\nHow do you want to sort?" +
+        print("\nHow do you want to sort?" +
                 "\n1) Sort all purchases" +
                 "\n2) Sort by type" +
                 "\n3) Sort certain type" +
@@ -28,7 +32,7 @@ public class Menu {
     }
 
     public static String getOptionFromPrintTypeMenu() {
-        System.out.println("\nChoose the type of purchases" +
+        print("\nChoose the type of purchases" +
                 "\n1) Food" +
                 "\n2) Clothes" +
                 "\n3) Entertainment" +
@@ -40,7 +44,7 @@ public class Menu {
     }
 
     public static String getOptionFromInputTypeMenu() {
-        System.out.println("\nChoose the type of purchase" +
+        print("\nChoose the type of purchase" +
                 "\n1) Food" +
                 "\n2) Clothes" +
                 "\n3) Entertainment" +
@@ -51,7 +55,7 @@ public class Menu {
     }
 
     public static String getOptionFromGeneralMenu() {
-        System.out.println("Choose your action:" +
+        print("Choose your action:" +
                 "\n1) Add income" +
                 "\n2) Add purchase" +
                 "\n3) Show list of purchases" +

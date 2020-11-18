@@ -19,9 +19,8 @@ public class SavePurchases {
                 fileWriter.write(line + "\n");
             }
         } catch (IOException e) {
-            BudgetApp.print("Something went wrong: \n" + e);
+            System.out.println("Something went wrong: \n" + e);
         }
-        BudgetApp.print("\nPurchases were saved!\n\n");
     }
 
 }

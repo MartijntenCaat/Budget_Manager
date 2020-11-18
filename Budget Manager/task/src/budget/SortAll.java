@@ -8,27 +8,17 @@ public class SortAll implements ISortMethod {
 
     @Override
     public ArrayList<String> sort(PurchaseStore purchaseStore) {
-
-        if (purchaseStore.getPurchaseStore().isEmpty()) {
-            BudgetApp.print("\nPurchase list is empty\n\n");
-            return null;
-        }
-
         Purchase[] array = purchaseStore.getPurchaseStore().toArray(new Purchase[0]);
         Purchase[] sortedArray = BubbleSort.bubbleSort(array);
 
         ArrayList<String> result = new ArrayList<>();
         BigDecimal total = new BigDecimal(BigInteger.ZERO);
-//        result.add("\nAll:\n");
+
         result.add("\n");
         for (Purchase purchase : sortedArray) {
             result.add(purchase.getName() + " $" + String.format("%.2f%n", purchase.getPrice()));
             total = total.add(purchase.getPrice());
         }
-
-//        if (!total.equals(BigDecimal.ZERO)) {
-//            result.add("Total sum: $" + String.format("%.2f%n", total) + "\n");
-//        }
 
         return result;
     }

@@ -6,22 +6,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
-    private final static String ERROR = "\nSomething went wrong, please try again!\n";
-    private final Scanner scan;
     private PurchaseStore purchaseStore;
-    private boolean isOnline;
 
     public BudgetApp() {
-        this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
-        this.isOnline = true;
     }
 
-    public static void print(String string) {
+    private void print(String string) {
         System.out.print(string);
     }
 
-    public void printSortingResult(ArrayList<String> result) {
+    public void print(ArrayList<String> result) {
         if (result != null) {
             for (String string : result) {
                 print(string);
@@ -30,48 +25,60 @@ public class BudgetApp {
     }
 
     public void run() {
-        switch (Menu.getOptionFromGeneralMenu()) {
-            case "1":
-                processIncome(askForIncome());
-                break;
-            case "2":
-                askPurchase();
-                break;
-            case "3":
-                printAllPurchasesAndTotalPrice();
-                break;
-            case "4":
-                printBalance();
-                break;
-            case "5":
-                SavePurchases.savePurchases(purchaseStore);
-                break;
-            case "6":
-                this.purchaseStore = LoadPurchases.loadPurchases();
-                break;
-            case "7":
-                processSorting();
-                break;
-            case "0":
-                exitBudgetApp();
-                break;
-            default:
-                break;
+        boolean isOnline = true;
+
+        while (isOnline) {
+            switch (Menu.getOptionFromGeneralMenu()) {
+                case "1": // 1) Add income
+                    processIncome(askForIncome());
+                    break;
+                case "2": // 2) Add purchase
+                    askPurchase();
+                    break;
+                case "3": // 3) Show list of purchases
+                    printAllPurchasesAndTotalPrice();
+                    break;
+                case "4": // 4) Balance
+                    printBalance();
+                    break;
+                case "5": // 5) Save
+                    SavePurchases.savePurchases(purchaseStore);
+                    print("\nPurchases were saved!\n\n");
+                    break;
+                case "6": // 6) Load
+                    this.purchaseStore = LoadPurchases.loadPurchases();
+                    print("\nPurchases were loaded!\n\n");
+                    break;
+                case "7": // 7) Analyze (Sort)
+                    processSorting();
+                    break;
+                case "0": // 0) Exit
+                    print("\nBye!\n\n");
+                    isOnline = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     private void processSorting() {
+        if (purchaseStore.getPurchaseStore().isEmpty()) {
+            print("\nPurchase list is empty\n\n");
+            return;
+        }
+
         boolean goBack = false;
         while (!goBack) {
             switch (Menu.getOptionFromSortMenu()) {
                 case "1":
-                    printSortingResult(new SortAll().sort(purchaseStore));
+                    print(new SortAll().sort(purchaseStore));
                     break;
                 case "2":
-                    printSortingResult(new SortByType().sort(purchaseStore));
+                    print(new SortByType().sort(purchaseStore));
                     break;
                 case "3":
-                    printSortingResult(new SortCertainType().sort(purchaseStore, Menu.getOptionFromInputSortMenu()));
+                    print(new SortCertainType().sort(purchaseStore, Menu.getOptionFromInputSortMenu()));
                     break;
                 case "4":
                     goBack = true;
@@ -81,23 +88,13 @@ public class BudgetApp {
         }
     }
 
-    private void exitBudgetApp() {
-        print("\nBye!\n\n");
-        isOnline = false;
-    }
-
-    boolean isOnline() {
-        return isOnline;
-    }
-
     private String readUserInput() {
-        return scan.nextLine();
+        return new Scanner(System.in).nextLine();
     }
 
     private BigDecimal askForIncome() {
         print("\nEnter Income:\n");
-        String income = scan.nextLine();
-        return new BigDecimal(income);
+        return new BigDecimal(readUserInput());
     }
 
     private void processIncome(BigDecimal newIncome) {
@@ -148,11 +145,13 @@ public class BudgetApp {
         boolean goBack = false;
         while (!goBack) {
             PurchaseType userInputType = askPurchaseTypeForAdding();
+
             if (userInputType == null) {
                 goBack = true;
                 print("\n");
                 continue;
             }
+
             Purchase purchase = new Purchase();
             purchase.setType(userInputType);
             purchase.setName(askPurchaseName());
@@ -163,7 +162,7 @@ public class BudgetApp {
 
     private String askPurchaseName() {
         print("\nEnter purchase name:\n");
-        return scan.nextLine();
+        return readUserInput();
     }
 
     private PurchaseType askPurchaseTypeForChecking() {
@@ -188,8 +187,7 @@ public class BudgetApp {
 
     private BigDecimal askPurchasePrice() {
         print("Enter its price:\n");
-        String price = scan.nextLine();
-        return new BigDecimal(price);
+        return new BigDecimal(readUserInput());
     }
 
     private void processPurchase(Purchase purchase) {
