@@ -5,15 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SavePurchases {
-    private final File file;
+    public static void savePurchases(PurchaseStore purchaseStore) {
 
-    public SavePurchases() {
-        this.file = new File("purchases.txt");
-    }
-
-    public void savePurchases(PurchaseStore purchaseStore) {
-
-        try (FileWriter fileWriter = new FileWriter(file, false)) {
+        try (FileWriter fileWriter = new FileWriter(new File("purchases.txt"), false)) {
             fileWriter.write(purchaseStore.getBalance().toString() + "\n");
 
             for (Purchase purchase : purchaseStore.getPurchaseStore()) {

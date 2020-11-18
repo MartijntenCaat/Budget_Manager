@@ -8,7 +8,6 @@ public class Purchase {
     private BigDecimal price;
 
     public Purchase() {
-        this.type = null;
     }
 
     public PurchaseType getType() {

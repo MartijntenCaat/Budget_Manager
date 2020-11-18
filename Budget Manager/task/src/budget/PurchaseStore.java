@@ -34,7 +34,11 @@ public class PurchaseStore {
         setBalance(balance.subtract(purchasePrice));
     }
 
-    public void setIncome(BigDecimal income) {
-        this.income = income;
+    public void setIncome(BigDecimal newIncome) {
+        if (income.intValue() > 0) {
+            this.income = income.add(newIncome);
+        } else {
+            this.income = new BigDecimal(String.valueOf(newIncome));
+        }
     }
 }

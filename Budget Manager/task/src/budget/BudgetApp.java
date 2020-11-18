@@ -2,100 +2,98 @@ package budget;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BudgetApp {
-    private final static String APP_MENU = "Choose your action:" +
-            "\n1) Add income" +
-            "\n2) Add purchase" +
-            "\n3) Show list of purchases" +
-            "\n4) Balance" +
-            "\n5) Save" +
-            "\n6) Load" +
-            "\n0) Exit" +
-            "\n";
-    private final static String INPUT_TYPE_OPTIONS = "\nChoose the type of purchase" +
-            "\n1) Food" +
-            "\n2) Clothes" +
-            "\n3) Entertainment" +
-            "\n4) Other" +
-            "\n5) Back" +
-            "\n";
-    private final static String PRINT_TYPE_OPTIONS = "\nChoose the type of purchases" +
-            "\n1) Food" +
-            "\n2) Clothes" +
-            "\n3) Entertainment" +
-            "\n4) Other" +
-            "\n5) All" +
-            "\n6) Back" +
-            "\n";
-    private final static String ERROR = "\nSomething went wrong, please try again!\n";
-    private final Scanner scan;
     private PurchaseStore purchaseStore;
-    private boolean isOnline;
 
     public BudgetApp() {
-        this.scan = new Scanner(System.in);
         this.purchaseStore = new PurchaseStore();
-        this.isOnline = true;
     }
 
-    public void print(String string) {
+    private void print(String string) {
         System.out.print(string);
     }
 
-    public void run() {
-        print(APP_MENU);
-        String userInput = readUserInput();
-
-        switch (userInput) {
-            case "1":
-                processIncome(askForIncome());
-                break;
-            case "2":
-                askPurchase();
-                break;
-            case "3":
-                printAllPurchasesAndTotalPrice();
-                break;
-            case "4":
-                printBalance();
-                break;
-            case "5":
-                SavePurchases savePurchases = new SavePurchases();
-                savePurchases.savePurchases(purchaseStore);
-                print("\nPurchases were saved!\n\n");
-                break;
-            case "6":
-                LoadPurchases loadPurchases = new LoadPurchases();
-                this.purchaseStore = loadPurchases.loadPurchases();
-                print("\nPurchases were loaded!\n\n");
-                break;
-            case "0":
-                exitBudgetApp();
-                break;
-            default:
-                break;
+    public void print(ArrayList<String> result) {
+        if (result != null) {
+            for (String string : result) {
+                print(string);
+            }
         }
     }
 
-    private void exitBudgetApp() {
-        print("\nBye!\n\n");
-        isOnline = false;
+    public void run() {
+        boolean isOnline = true;
+        while (isOnline) {
+            switch (Menu.getOptionFromGeneralMenu()) {
+                case "1": // 1) Add income
+                    processIncome(askForIncome());
+                    break;
+                case "2": // 2) Add purchase
+                    askPurchase();
+                    break;
+                case "3": // 3) Show list of purchases
+                    printAllPurchasesAndTotalPrice();
+                    break;
+                case "4": // 4) Balance
+                    printBalance();
+                    break;
+                case "5": // 5) Save
+                    SavePurchases.savePurchases(purchaseStore);
+                    print("\nPurchases were saved!\n\n");
+                    break;
+                case "6": // 6) Load
+                    this.purchaseStore = LoadPurchases.loadPurchases();
+                    print("\nPurchases were loaded!\n\n");
+                    break;
+                case "7": // 7) Analyze (Sort)
+                    processSorting();
+                    break;
+                case "0": // 0) Exit
+                    print("\nBye!\n\n");
+                    isOnline = false;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
-    boolean isOnline() {
-        return isOnline;
+    private void processSorting() {
+        if (purchaseStore.getPurchaseStore().isEmpty()) {
+            print("\nPurchase list is empty\n\n");
+            return;
+        }
+
+        boolean goBack = false;
+        while (!goBack) {
+            switch (Menu.getOptionFromSortMenu()) {
+                case "1":
+                    print(new SortAll().sort(purchaseStore));
+                    break;
+                case "2":
+                    print(new SortByType().sort(purchaseStore));
+                    break;
+                case "3":
+                    print(new SortCertainType().sort(purchaseStore, Menu.getOptionFromInputSortMenu()));
+                    break;
+                case "4":
+                    goBack = true;
+                    print("\n");
+                    break;
+            }
+        }
     }
 
     private String readUserInput() {
-        return scan.nextLine();
+        return new Scanner(System.in).nextLine();
     }
 
     private BigDecimal askForIncome() {
         print("\nEnter Income:\n");
-        String income = scan.nextLine();
-        return new BigDecimal(income);
+        return new BigDecimal(readUserInput());
     }
 
     private void processIncome(BigDecimal newIncome) {
@@ -111,9 +109,7 @@ public class BudgetApp {
         }
 
         boolean goBack = false;
-
         while (!goBack) {
-
             PurchaseType purchaseType = askPurchaseTypeForChecking();
 
             if (purchaseType == null) {
@@ -123,9 +119,7 @@ public class BudgetApp {
             }
 
             BigDecimal total = new BigDecimal(BigInteger.ZERO);
-
             print("\n" + purchaseType.toString() + ":\n");
-
             if (!purchaseType.getValue().equals(PurchaseType.ALL.getValue())) {
                 for (Purchase purchase : purchaseStore.getPurchaseStore()) {
                     if (purchase.getType().equals(purchaseType)) {
@@ -141,83 +135,58 @@ public class BudgetApp {
             }
 
             if (!total.equals(BigDecimal.ZERO)) {
-
                 print("Total sum: $" + String.format("%.2f%n", total));
-
-
             }
         }
     }
 
     private void askPurchase() {
         boolean goBack = false;
-
         while (!goBack) {
-            Purchase purchase = new Purchase();
-
             PurchaseType userInputType = askPurchaseTypeForAdding();
+
             if (userInputType == null) {
                 goBack = true;
                 print("\n");
                 continue;
             }
+
+            Purchase purchase = new Purchase();
             purchase.setType(userInputType);
-
-            String userInputName = askPurchaseName();
-            purchase.setName(userInputName);
-
-            BigDecimal userInputPrice = askPurchasePrice();
-            purchase.setPrice(userInputPrice);
-
+            purchase.setName(askPurchaseName());
+            purchase.setPrice(askPurchasePrice());
             processPurchase(purchase);
         }
     }
 
     private String askPurchaseName() {
         print("\nEnter purchase name:\n");
-        return scan.nextLine();
+        return readUserInput();
     }
 
     private PurchaseType askPurchaseTypeForChecking() {
-        print(PRINT_TYPE_OPTIONS);
-        String userInputType = scan.nextLine();
+        String optionFromPrintTypeMenu = Menu.getOptionFromPrintTypeMenu();
 
-        if (userInputType.equals("6")) { // back to menu
+        if (optionFromPrintTypeMenu.equals("6")) { // back to menu
             return null;
         }
 
-        for (PurchaseType purchaseType : PurchaseType.values()) {
-            if (purchaseType.getValue().equals(userInputType)) {
-                return purchaseType;
-            }
-        }
-
-        print(ERROR);
-        return null;
+        return PurchaseType.extractTypeFromInput(optionFromPrintTypeMenu);
     }
 
     private PurchaseType askPurchaseTypeForAdding() {
-        print(INPUT_TYPE_OPTIONS);
-        String userInputType = scan.nextLine();
+        String optionFromInputTypeMenu = Menu.getOptionFromInputTypeMenu();
 
-        if (userInputType.equals("5")) { // back to menu
+        if (optionFromInputTypeMenu.equals("5")) { // back to menu
             return null;
         }
 
-        for (PurchaseType purchaseType : PurchaseType.values()) {
-            if (purchaseType.getValue().equals(userInputType)) {
-                return purchaseType;
-            }
-        }
-
-        print(ERROR);
-        return null;
+        return PurchaseType.extractTypeFromInput(optionFromInputTypeMenu);
     }
 
     private BigDecimal askPurchasePrice() {
         print("Enter its price:\n");
-        String price = scan.nextLine();
-        return new BigDecimal(price);
+        return new BigDecimal(readUserInput());
     }
 
     private void processPurchase(Purchase purchase) {

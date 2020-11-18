@@ -13,6 +13,36 @@ public enum PurchaseType {
         this.value = value;
     }
 
+    public static String toString(String value) {
+        if (value.equals("1")) {
+            return "Food";
+        }
+        if (value.equals("2")) {
+            return "Clothes";
+        }
+        if (value.equals("3")) {
+            return "Entertainment";
+        }
+        if (value.equals("4")) {
+            return "Other";
+        }
+        if (value.equals("5")) {
+            return "All";
+        }
+
+        return null;
+    }
+
+    public static PurchaseType extractTypeFromInput(String input) {
+        for (PurchaseType purchaseType : PurchaseType.values()) {
+            if (purchaseType.getValue().equals(input)) {
+                return purchaseType;
+            }
+        }
+        System.out.println("\nSomething went wrong, please try again!\n");
+        return null;
+    }
+
     public String getValue() {
         return value;
     }
