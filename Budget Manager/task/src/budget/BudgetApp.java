@@ -26,7 +26,6 @@ public class BudgetApp {
 
     public void run() {
         boolean isOnline = true;
-
         while (isOnline) {
             switch (Menu.getOptionFromGeneralMenu()) {
                 case "1": // 1) Add income
