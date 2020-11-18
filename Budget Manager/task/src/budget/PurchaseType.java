@@ -33,6 +33,16 @@ public enum PurchaseType {
         return null;
     }
 
+    public static PurchaseType extractTypeFromInput(String input) {
+        for (PurchaseType purchaseType : PurchaseType.values()) {
+            if (purchaseType.getValue().equals(input)) {
+                return purchaseType;
+            }
+        }
+        System.out.println("\nSomething went wrong, please try again!\n");
+        return null;
+    }
+
     public String getValue() {
         return value;
     }

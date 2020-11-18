@@ -147,7 +147,6 @@ public class BudgetApp {
     private void askPurchase() {
         boolean goBack = false;
         while (!goBack) {
-
             PurchaseType userInputType = askPurchaseTypeForAdding();
             if (userInputType == null) {
                 goBack = true;
@@ -168,37 +167,23 @@ public class BudgetApp {
     }
 
     private PurchaseType askPurchaseTypeForChecking() {
-        String userInputType = Menu.getOptionFromPrintTypeMenu();
+        String optionFromPrintTypeMenu = Menu.getOptionFromPrintTypeMenu();
 
-        if (userInputType.equals("6")) { // back to menu
+        if (optionFromPrintTypeMenu.equals("6")) { // back to menu
             return null;
         }
 
-        for (PurchaseType purchaseType : PurchaseType.values()) {
-            if (purchaseType.getValue().equals(userInputType)) {
-                return purchaseType;
-            }
-        }
-
-        print(ERROR);
-        return null;
+        return PurchaseType.extractTypeFromInput(optionFromPrintTypeMenu);
     }
 
     private PurchaseType askPurchaseTypeForAdding() {
-        String userInput = Menu.getOptionFromInputTypeMenu();
+        String optionFromInputTypeMenu = Menu.getOptionFromInputTypeMenu();
 
-        if (userInput.equals("5")) { // back to menu
+        if (optionFromInputTypeMenu.equals("5")) { // back to menu
             return null;
         }
 
-        for (PurchaseType purchaseType : PurchaseType.values()) {
-            if (purchaseType.getValue().equals(userInput)) {
-                return purchaseType;
-            }
-        }
-
-        print(ERROR);
-        return null;
+        return PurchaseType.extractTypeFromInput(optionFromInputTypeMenu);
     }
 
     private BigDecimal askPurchasePrice() {
